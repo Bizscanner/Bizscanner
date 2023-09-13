@@ -19,4 +19,11 @@ class StoreServiceTest {
                 .hasMessage("Report Resource not exists");
     }
 
+    @Test
+    public void store_EmptyCheck() {
+        Assertions.assertThatThrownBy(() -> storeService.getQuarterlyStore("2020", "123"))
+                .isInstanceOf(CustomException.class)
+                .hasMessage("Report Resource not exists");
+    }
+
 }

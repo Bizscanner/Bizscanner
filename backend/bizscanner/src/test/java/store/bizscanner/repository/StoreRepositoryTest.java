@@ -32,4 +32,5 @@ class StoreRepositoryTest {
         List<String> maxCloseStoreCounts = storeRepository.findMaxCloseStoreCount("1001495", "2023");
         Assertions.assertThat(maxCloseStoreCounts.get(0)).isEqualTo("한식음식점");
     }
+
 }
