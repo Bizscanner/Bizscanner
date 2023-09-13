@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import store.bizscanner.dto.response.store.BestJcategoryResponse;
+import store.bizscanner.dto.response.store.QuarterlyOpenStoreResponse;
 import store.bizscanner.dto.response.store.QuarterlyStoreResponse;
 import store.bizscanner.global.exception.CustomException;
 import store.bizscanner.global.exception.ErrorCode;
@@ -22,6 +23,10 @@ public class StoreService {
     private static final String QUARTER_YEAR = "2021";
     private static final int REQUIRED_RESULT_COUNT = 5;
 
+    /**
+     * @param careaCode 상권코드
+     * Best 업종 API
+     */
     public BestJcategoryResponse bestJcategory(String careaCode) {
 
         //상권 내 가장 많은 점포수를 보유한 업종 정보
@@ -42,6 +47,11 @@ public class StoreService {
         return new BestJcategoryResponse(bestStoreCountJcategory, bestOpenStoreCountJcategory, bestCloseStoreCountJcategory);
     }
 
+    /**
+     * @param careaCode 상권코드
+     * @param jcategoryCode 업종코드
+     * 점포 수 API
+     */
     public QuarterlyStoreResponse getQuarterlyStore(String careaCode, String jcategoryCode) {
         List<TotalStoreMapping> quarterlyStore =
                 storeRepository.findByCareaCodeAndJcategoryCodeAndYearCodeGreaterThanOrderByStoreIdDesc
@@ -52,4 +62,16 @@ public class StoreService {
         return new QuarterlyStoreResponse(quarterlyStore);
     }
 
+    /**
+     * @param careaCode 상권코드
+     * @param jcategoryCode 업종코드
+     * 개업 현황 API
+     */
+    public QuarterlyOpenStoreResponse getQuarterlyOpenStore(String careaCode, String jcategoryCode) {
+        List<Integer> quarterlyOpenStoreList = storeRepository.getQuarterlyOpenStore(careaCode, jcategoryCode);
+        if(quarterlyOpenStoreList.size() < REQUIRED_RESULT_COUNT) {
+            throw new CustomException(ErrorCode.REPORT_RESOURCE_NOT_FOUND);
+        }
+        return new QuarterlyOpenStoreResponse(quarterlyOpenStoreList);
+    }
 }

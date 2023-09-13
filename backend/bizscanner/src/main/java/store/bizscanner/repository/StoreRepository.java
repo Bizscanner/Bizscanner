@@ -29,4 +29,9 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     List<String> findMaxCloseStoreCount(@Param("careaCode") String careaCode, @Param("yearCode") String yearCode);
 
     List<TotalStoreMapping> findByCareaCodeAndJcategoryCodeAndYearCodeGreaterThanOrderByStoreIdDesc(String careaCode, String jcategoryCode, String yearCode);
+
+    @Query("SELECT s.openStoreCount FROM Store s WHERE s.careaCode = :careaCode " +
+            "AND s.jcategoryCode = :jcategoryCode AND s.yearCode >= '2022' ORDER BY s.storeId DESC")
+    List<Integer> getQuarterlyOpenStore(@Param("careaCode") String careaCode, @Param("jcategoryCode") String jcategoryCode);
+
 }
