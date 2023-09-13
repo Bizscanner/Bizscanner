@@ -6,11 +6,12 @@ import store.bizscanner.entity.Population;
 import store.bizscanner.repository.mapping.TotalPopulationMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PopulationRepository extends JpaRepository<Population, Long> {
 
-    Population findTopByCareaCodeOrderByYearCodeDescQuarterCodeDesc(String careaCode);
+    Optional<Population> findTopByCareaCodeOrderByYearCodeDescQuarterCodeDesc(String careaCode);
 
     List<TotalPopulationMapping> findByCareaCodeAndYearCodeGreaterThanOrderByYearCodeAscQuarterCodeAsc(String careaCode, String yearCode);
 }

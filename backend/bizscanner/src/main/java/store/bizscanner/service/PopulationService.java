@@ -3,18 +3,22 @@ package store.bizscanner.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import store.bizscanner.dto.response.BestPopulationResponse;
-import store.bizscanner.dto.response.PopulationResponse;
+import store.bizscanner.dto.response.population.BestPopulationResponse;
+import store.bizscanner.dto.response.population.PopulationResponse;
+import store.bizscanner.dto.response.population.QuarterlyPopulationResponse;
 import store.bizscanner.entity.Population;
 import store.bizscanner.entity.enums.Age;
 import store.bizscanner.entity.enums.Day;
 import store.bizscanner.entity.enums.Gender;
 import store.bizscanner.entity.enums.Time;
+import store.bizscanner.global.exception.CustomException;
+import store.bizscanner.global.exception.ErrorCode;
 import store.bizscanner.repository.PopulationRepository;
 import store.bizscanner.repository.mapping.TotalPopulationMapping;
 
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,7 +30,8 @@ public class PopulationService {
     // Best 유동인구 반환
     // DB에서 전체 데이터를 호출 후 각각의 Best 항목을 구해 Response에 맵핑하여 반환
     public BestPopulationResponse bestPopulation(String careaCode) {
-        Population population = populationRepository.findTopByCareaCodeOrderByYearCodeDescQuarterCodeDesc(careaCode);
+        Population population = populationRepository.findTopByCareaCodeOrderByYearCodeDescQuarterCodeDesc(careaCode)
+                .orElseThrow(() -> new CustomException(ErrorCode.REPORT_RESOURCE_NOT_FOUND));
 
         return new BestPopulationResponse(
                 (Gender) getBestGender(population),
@@ -110,55 +115,15 @@ public class PopulationService {
     // 해당하는 상권의 유동인구 정보를 반환
     // 분기, 요일, 시간대, 성별, 연령대, 남성연령대, 여성연령대 별 유동인구 수를 반환
     public PopulationResponse getPopulation(String careaCode) {
-        Population population = populationRepository.findTopByCareaCodeOrderByYearCodeDescQuarterCodeDesc(careaCode);
         List<TotalPopulationMapping> quarterlyPopulation = populationRepository.findByCareaCodeAndYearCodeGreaterThanOrderByYearCodeAscQuarterCodeAsc(careaCode, "2021");
 
         return new PopulationResponse(
-                quarterlyPopulation.stream().map(TotalPopulationMapping::getTotalPopulation).toArray(Integer[]::new),
-                new Integer[] {
-                        population.getMondayPopulation(),
-                        population.getTuesdayPopulation(),
-                        population.getWednesdayPopulation(),
-                        population.getThursdayPopulation(),
-                        population.getFridayPopulation(),
-                        population.getSaturdayPopulation(),
-                        population.getSundayPopulation()
-                },
-                new Integer[] {
-                        population.getTime1Population(),
-                        population.getTime2Population(),
-                        population.getTime3Population(),
-                        population.getTime4Population(),
-                        population.getTime5Population(),
-                        population.getTime6Population(),
-                },
-                new Integer[] {
-                        population.getMalePopulation(),
-                        population.getFemalePopulation()
-                },
-                new Integer[] {
-                        population.getTeensPopulation(),
-                        population.getTwentiesPopulation(),
-                        population.getThirtiesPopulation(),
-                        population.getFortiesPopulation(),
-                        population.getFiftiesPopulation(),
-                        population.getSixtiesPopulation()
-                },
-                new Integer[] {
-                        population.getMaleTeensPopulation(),
-                        population.getMaleTwentiesPopulation(),
-                        population.getMaleThirtiesPopulation(),
-                        population.getMaleFortiesPopulation(),
-                        population.getMaleFiftiesPopulation(),
-                        population.getMaleOversixtiesPopulation()
-                },
-                new Integer[] {
-                        population.getFemaleFortiesPopulation(),
-                        population.getFemaleTwentiesPopulation(),
-                        population.getFemaleThirtiesPopulation(),
-                        population.getFemaleFortiesPopulation(),
-                        population.getFemaleFiftiesPopulation(),
-                        population.getFemaleOversixtiesPopulation()
-                });
+                quarterlyPopulation.stream().map(totalPopulationMapping -> new QuarterlyPopulationResponse(
+                        totalPopulationMapping.getYearCode(),
+                        totalPopulationMapping.getQuarterCode(),
+                        totalPopulationMapping.getTotalPopulation()))
+                        .collect(Collectors.toList()),
+                populationRepository.findTopByCareaCodeOrderByYearCodeDescQuarterCodeDesc(careaCode)
+                        .orElseThrow(() -> new CustomException(ErrorCode.REPORT_RESOURCE_NOT_FOUND)));
     }
 }

@@ -1,4 +1,4 @@
-package store.bizscanner.dto.response;
+package store.bizscanner.dto.response.population;
 
 import lombok.*;
 import store.bizscanner.entity.enums.Age;
