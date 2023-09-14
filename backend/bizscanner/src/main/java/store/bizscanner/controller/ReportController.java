@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import store.bizscanner.dto.response.population.BestPopulationResponse;
 import store.bizscanner.dto.response.rent.RentResponse;
 import store.bizscanner.dto.response.store.BestJcategoryResponse;
+import store.bizscanner.dto.response.store.QuarterlyCloseStoreResponse;
 import store.bizscanner.dto.response.store.QuarterlyOpenStoreResponse;
 import store.bizscanner.dto.response.store.QuarterlyStoreResponse;
 import store.bizscanner.dto.response.population.PopulationResponse;
@@ -56,5 +57,10 @@ public class ReportController {
     @GetMapping("/stores/open-status/{careaCode}/{jcategoryCode}")
     public ResponseEntity<QuarterlyOpenStoreResponse> getQuarterlyOpenStore(@PathVariable String careaCode, @PathVariable String jcategoryCode) {
         return new ResponseEntity<>(storeService.getQuarterlyOpenStore(careaCode,jcategoryCode), HttpStatus.OK);
+    }
+
+    @GetMapping("/stores/close-status/{careaCode}/{jcategoryCode}")
+    public ResponseEntity<QuarterlyCloseStoreResponse> getQuarterlyCloseStore(@PathVariable String careaCode, @PathVariable String jcategoryCode) {
+        return new ResponseEntity<>(storeService.getQuarterlyCloseStore(careaCode,jcategoryCode), HttpStatus.OK);
     }
 }

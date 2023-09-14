@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import store.bizscanner.dto.response.store.BestJcategoryResponse;
+import store.bizscanner.dto.response.store.QuarterlyCloseStoreResponse;
 import store.bizscanner.dto.response.store.QuarterlyOpenStoreResponse;
 import store.bizscanner.dto.response.store.QuarterlyStoreResponse;
 import store.bizscanner.global.exception.CustomException;
@@ -73,5 +74,18 @@ public class StoreService {
             throw new CustomException(ErrorCode.REPORT_RESOURCE_NOT_FOUND);
         }
         return new QuarterlyOpenStoreResponse(quarterlyOpenStoreList);
+    }
+
+    /**
+     * @param careaCode 상권코드
+     * @param jcategoryCode 업종코드
+     * 폐업 현황 API
+     */
+    public QuarterlyCloseStoreResponse getQuarterlyCloseStore(String careaCode, String jcategoryCode) {
+        List<Integer> quarterlyCloseStoreList = storeRepository.getQuarterlyCloseStore(careaCode, jcategoryCode);
+        if(quarterlyCloseStoreList.size() < REQUIRED_RESULT_COUNT) {
+            throw new CustomException(ErrorCode.REPORT_RESOURCE_NOT_FOUND);
+        }
+        return new QuarterlyCloseStoreResponse(quarterlyCloseStoreList);
     }
 }

@@ -34,4 +34,7 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
             "AND s.jcategoryCode = :jcategoryCode AND s.yearCode >= '2022' ORDER BY s.storeId DESC")
     List<Integer> getQuarterlyOpenStore(@Param("careaCode") String careaCode, @Param("jcategoryCode") String jcategoryCode);
 
+    @Query("SELECT s.closeStoreCount FROM Store s WHERE s.careaCode = :careaCode " +
+            "AND s.jcategoryCode = :jcategoryCode AND s.yearCode >= '2022' ORDER BY s.storeId DESC")
+    List<Integer> getQuarterlyCloseStore(@Param("careaCode") String careaCode, @Param("jcategoryCode") String jcategoryCode);
 }
