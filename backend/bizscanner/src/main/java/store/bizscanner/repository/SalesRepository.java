@@ -6,6 +6,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import store.bizscanner.entity.Sales;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface SalesRepository extends JpaRepository<Sales, Long> {
 
@@ -15,7 +18,7 @@ public interface SalesRepository extends JpaRepository<Sales, Long> {
             "       ELSE 'equal' END AS higherSalesGender\n" +
             "FROM Sales s\n" +
             "WHERE s.careaCode = :careaCode")
-    String findBestSalesGender(@Param("careaCode") String careaCode);
+    Optional<String> findBestSalesGender(@Param("careaCode") String careaCode);
 
     @Query("SELECT " +
             "CASE " +
@@ -28,7 +31,7 @@ public interface SalesRepository extends JpaRepository<Sales, Long> {
             "END AS highestSalesAgeGroup " +
             "FROM Sales s " +
             "WHERE s.careaCode = :careaCode")
-    String findBestSalesAge(@Param("careaCode") String careaCode);
+    Optional<String> findBestSalesAge(@Param("careaCode") String careaCode);
 
     @Query("SELECT CASE " +
             "WHEN SUM(s.mondaySalesAmount) >= GREATEST(" +
@@ -77,7 +80,7 @@ public interface SalesRepository extends JpaRepository<Sales, Long> {
             "END AS highest_sales_day " +
             "FROM Sales s " +
             "WHERE s.careaCode = :careaCode")
-    String findBestSalesDay(String careaCode);
+    Optional<String> findBestSalesDay(String careaCode);
 
 
     @Query("SELECT CASE " +
@@ -115,9 +118,12 @@ public interface SalesRepository extends JpaRepository<Sales, Long> {
             "END AS highestSalesTime " +
             "FROM Sales s " +
             "WHERE s.careaCode = :careaCode")
-    String findBestSalesTime(String careaCode);
+    Optional<String> findBestSalesTime(String careaCode);
 
 
-    Sales findTopByCareaCodeOrderByQuarterSalesAmountDesc(String careaCode);
+    Optional<Sales> findTopByCareaCodeOrderByQuarterSalesAmountDesc(String careaCode);
+
+    List<Sales> findByCareaCodeAndJcategoryCodeOrderByYearCodeAscQuarterCodeAsc(String careaCode, String jcategoryCode);
+
 
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import store.bizscanner.dto.response.salesResponse.QuarterSalesCountListResponse;
 import store.bizscanner.dto.response.population.BestPopulationResponse;
 import store.bizscanner.dto.response.rent.RentResponse;
 import store.bizscanner.dto.response.store.BestJcategoryResponse;
@@ -47,6 +48,11 @@ public class ReportController {
     @GetMapping("best-sales-amount/{careaCode}")
     public ResponseEntity<BestSalesResponse> getBestSales(@PathVariable String careaCode) {
         return new ResponseEntity<>(salesService.getBestSales(careaCode), HttpStatus.OK);
+    }
+
+    @GetMapping("sales/count/{careaCode}/{jcategoryCode}")
+    public ResponseEntity<QuarterSalesCountListResponse> getQuarterSalesCount(@PathVariable String careaCode, @PathVariable String jcategoryCode) {
+        return new ResponseEntity<>(salesService.getQuarterSalesCount(careaCode, jcategoryCode), HttpStatus.OK);
     }
 
     @GetMapping("/rent/{careaCode}")
