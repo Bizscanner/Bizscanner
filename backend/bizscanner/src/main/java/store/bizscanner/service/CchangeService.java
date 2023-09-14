@@ -3,25 +3,24 @@ package store.bizscanner.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import store.bizscanner.dto.response.rent.RentResponse;
+import store.bizscanner.dto.response.cchange.CchangeResponse;
 import store.bizscanner.global.exception.CustomException;
 import store.bizscanner.global.exception.ErrorCode;
-import store.bizscanner.repository.RentRepository;
+import store.bizscanner.repository.CchangeRepository;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class RentService {
-    private final RentRepository rentRepository;
-    private final CareaService careaService;
+public class CchangeService {
+    private final CchangeRepository cchangeRepository;
 
     /**
-     * 임대료
+     * 상권 변화지표 API
      * @param careaCode
-     * @return 해당 상권의 임대료 정보 반환
+     * @return 상권의 가장 최신 상권변화지표
      */
-    public RentResponse getRent(String careaCode) {
-        return new RentResponse(rentRepository.findById(careaService.findByCareaCode(careaCode).getRentId())
+    public CchangeResponse findBycareaCode(String careaCode){
+        return new CchangeResponse(cchangeRepository.findTopByCareaCodeOrderByYearCodeDescQuarterCodeDesc(careaCode)
                 .orElseThrow(() -> new CustomException(ErrorCode.REPORT_RESOURCE_NOT_FOUND)));
     }
 }

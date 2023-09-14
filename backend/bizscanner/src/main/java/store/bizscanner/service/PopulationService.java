@@ -27,8 +27,14 @@ public class PopulationService {
 
     private final PopulationRepository populationRepository;
 
-    // Best 유동인구 반환
-    // DB에서 전체 데이터를 호출 후 각각의 Best 항목을 구해 Response에 맵핑하여 반환
+    private static final String QUARTER_YEAR = "2021";
+    private static final int REQUIRED_LEAST_RESULT_COUNT = 2;
+
+    /**
+     * Best 유동인구 API
+     * @param careaCode
+     * @return Best 유동인구 반환
+     */
     public BestPopulationResponse bestPopulation(String careaCode) {
         Population population = populationRepository.findTopByCareaCodeOrderByYearCodeDescQuarterCodeDesc(careaCode)
                 .orElseThrow(() -> new CustomException(ErrorCode.REPORT_RESOURCE_NOT_FOUND));
@@ -41,9 +47,11 @@ public class PopulationService {
         );
     }
 
-    // Best 항목을 찾기 위한 Inner Class
-    // 여러 Enum Type에 대응하기 위해 Object로 선언
-    // value를 기준으로 정렬하는 규칙 생성
+    /**
+     * Best 항목을 찾기 위한 Inner Class
+     * 여러 Enum Type에 대응하기 위해 Object로 선언
+     * value를 기준으로 정렬하는 규칙 생성
+     */
     public static class Best implements Comparable<Best> {
         Integer value;
         Object object;
@@ -58,8 +66,11 @@ public class PopulationService {
         }
     }
 
-    // PriorityQueue를 이용해 유동인구가 가장 많은 항목 추출
-    // Best 성별
+    /**
+     * Best 유동인구 - 성별
+     * @param population
+     * @return Best 성별
+     */
     public Object getBestGender(Population population) {
         PriorityQueue<Best> maxPopulation = new PriorityQueue<>();
 
@@ -69,7 +80,11 @@ public class PopulationService {
         return maxPopulation.poll().object;
     }
 
-    // Best 연령대
+    /**
+     * Best 유동인구 - 연령대
+     * @param population
+     * @return Best 연령대
+     */
     public Object getBestAge(Population population) {
         PriorityQueue<Best> maxPopulation = new PriorityQueue<>();
 
@@ -83,7 +98,11 @@ public class PopulationService {
         return maxPopulation.poll().object;
     }
 
-    // Best 요일
+    /**
+     * Best 유동인구 - 요일
+     * @param population
+     * @return Best 요일
+     */
     public Object getBestDay(Population population) {
         PriorityQueue<Best> maxPopulation = new PriorityQueue<>();
 
@@ -98,7 +117,11 @@ public class PopulationService {
         return maxPopulation.poll().object;
     }
 
-    // Best 시간대
+    /**
+     * Best 유동인구 - 시간대
+     * @param population
+     * @return Best 시간대
+     */
     public Object getBestTime(Population population) {
         PriorityQueue<Best> maxPopulation = new PriorityQueue<>();
 
@@ -112,13 +135,19 @@ public class PopulationService {
         return maxPopulation.poll().object;
     }
 
-    // 해당하는 상권의 유동인구 정보를 반환
-    // 분기, 요일, 시간대, 성별, 연령대, 남성연령대, 여성연령대 별 유동인구 수를 반환
+    /**
+     * 유동인구 수 API
+     * @param careaCode
+     * @return 분기, 요일, 시간대, 성별, 연령대, 남성연령대, 여성연령대 별 유동인구 수를 반환
+     */
     public PopulationResponse getPopulation(String careaCode) {
-        List<TotalPopulationMapping> quarterlyPopulation = populationRepository.findByCareaCodeAndYearCodeGreaterThanOrderByYearCodeAscQuarterCodeAsc(careaCode, "2021");
-
+        List<TotalPopulationMapping> quarterlyPopulation = populationRepository.findByCareaCodeAndYearCodeGreaterThanOrderByYearCodeAscQuarterCodeAsc(careaCode, QUARTER_YEAR);
+        if(quarterlyPopulation.size() < REQUIRED_LEAST_RESULT_COUNT){
+            throw new CustomException(ErrorCode.REPORT_RESOURCE_NOT_FOUND);
+        }
         return new PopulationResponse(
-                quarterlyPopulation.stream().map(totalPopulationMapping -> new QuarterlyPopulationResponse(
+                quarterlyPopulation.stream()
+                        .map(totalPopulationMapping -> new QuarterlyPopulationResponse(
                         totalPopulationMapping.getYearCode(),
                         totalPopulationMapping.getQuarterCode(),
                         totalPopulationMapping.getTotalPopulation()))
