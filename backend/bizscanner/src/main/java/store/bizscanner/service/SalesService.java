@@ -3,7 +3,7 @@ package store.bizscanner.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import store.bizscanner.dto.response.salesResponse.*;
+import store.bizscanner.dto.response.sales.*;
 import store.bizscanner.entity.Sales;
 import store.bizscanner.global.exception.CustomException;
 import store.bizscanner.global.exception.ErrorCode;
@@ -11,7 +11,6 @@ import store.bizscanner.repository.SalesRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

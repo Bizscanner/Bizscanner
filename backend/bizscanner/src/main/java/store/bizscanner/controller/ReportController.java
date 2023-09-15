@@ -4,18 +4,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import store.bizscanner.dto.response.sales.QuarterSalesCountListResponse;
 import store.bizscanner.dto.response.earningexpenditure.ConsumptionTrendResponse;
-import store.bizscanner.dto.response.salesResponse.QuarterSalesCountListResponse;
 import store.bizscanner.dto.response.cchange.CchangeResponse;
 import store.bizscanner.dto.response.population.BestPopulationResponse;
 import store.bizscanner.dto.response.rent.RentResponse;
-import store.bizscanner.dto.response.salesResponse.SalesAmountResponse;
+import store.bizscanner.dto.response.sales.SalesAmountResponse;
 import store.bizscanner.dto.response.store.BestJcategoryResponse;
 import store.bizscanner.dto.response.store.QuarterlyCloseStoreResponse;
 import store.bizscanner.dto.response.store.QuarterlyOpenStoreResponse;
 import store.bizscanner.dto.response.store.QuarterlyStoreResponse;
 import store.bizscanner.dto.response.population.PopulationResponse;
-import store.bizscanner.dto.response.salesResponse.BestSalesResponse;
+import store.bizscanner.dto.response.sales.BestSalesResponse;
 import store.bizscanner.service.*;
 
 @RestController

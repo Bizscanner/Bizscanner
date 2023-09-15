@@ -80,7 +80,7 @@ public interface SalesRepository extends JpaRepository<Sales, Long> {
             "END AS highest_sales_day " +
             "FROM Sales s " +
             "WHERE s.careaCode = :careaCode")
-    Optional<String> findBestSalesDay(String careaCode);
+    Optional<String> findBestSalesDay(@Param("careaCode") String careaCode);
 
 
     @Query("SELECT CASE " +
@@ -118,12 +118,10 @@ public interface SalesRepository extends JpaRepository<Sales, Long> {
             "END AS highestSalesTime " +
             "FROM Sales s " +
             "WHERE s.careaCode = :careaCode")
-    Optional<String> findBestSalesTime(String careaCode);
+    Optional<String> findBestSalesTime(@Param("careaCode") String careaCode);
 
 
     Optional<Sales> findTopByCareaCodeOrderByQuarterSalesAmountDesc(String careaCode);
-
-    Optional<Sales> findTopByCareaCodeAndJcategoryCodeOrderByQuarterSalesAmountDesc(String careaCode, String jcategoryCode);
 
     List<Sales> findByCareaCodeAndJcategoryCodeOrderByYearCodeAscQuarterCodeAsc(String careaCode, String jcategoryCode);
 

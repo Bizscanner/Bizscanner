@@ -1,4 +1,4 @@
-package store.bizscanner.dto.response.salesResponse;
+package store.bizscanner.dto.response.sales;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
