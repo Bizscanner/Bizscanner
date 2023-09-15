@@ -1,8 +1,8 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/boeing
-    username: boeing
+    url: jdbc:mariadb://mariadb:3306/boeing
+    username: ${DB_USER}
     password: ${DB_PASSWORD}
   jpa:
     show-sql: false
