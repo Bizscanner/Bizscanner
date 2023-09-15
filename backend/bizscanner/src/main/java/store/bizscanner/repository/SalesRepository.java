@@ -123,7 +123,9 @@ public interface SalesRepository extends JpaRepository<Sales, Long> {
 
     Optional<Sales> findTopByCareaCodeOrderByQuarterSalesAmountDesc(String careaCode);
 
+    Optional<Sales> findTopByCareaCodeAndJcategoryCodeOrderByQuarterSalesAmountDesc(String careaCode, String jcategoryCode);
+
     List<Sales> findByCareaCodeAndJcategoryCodeOrderByYearCodeAscQuarterCodeAsc(String careaCode, String jcategoryCode);
 
-
+    Optional<Sales> findTopByCareaCodeAndJcategoryCode(String careaCode, String jcategoryCode);
 }

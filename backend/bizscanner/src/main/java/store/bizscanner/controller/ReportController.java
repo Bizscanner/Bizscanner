@@ -8,6 +8,7 @@ import store.bizscanner.dto.response.salesResponse.QuarterSalesCountListResponse
 import store.bizscanner.dto.response.cchange.CchangeResponse;
 import store.bizscanner.dto.response.population.BestPopulationResponse;
 import store.bizscanner.dto.response.rent.RentResponse;
+import store.bizscanner.dto.response.salesResponse.SalesAmountResponse;
 import store.bizscanner.dto.response.store.BestJcategoryResponse;
 import store.bizscanner.dto.response.store.QuarterlyCloseStoreResponse;
 import store.bizscanner.dto.response.store.QuarterlyOpenStoreResponse;
@@ -76,4 +77,10 @@ public class ReportController {
     public ResponseEntity<CchangeResponse> getCareaChange(@PathVariable String careaCode){
         return new ResponseEntity<>(cchangeService.findBycareaCode(careaCode), HttpStatus.OK);
     }
+
+    @GetMapping("/sales/amount/{careaCode}/{jcategoryCode}")
+    public ResponseEntity<SalesAmountResponse> getSalesAmount(@PathVariable String careaCode, @PathVariable String jcategoryCode) {
+        return new ResponseEntity<>(salesService.getSalesAmount(careaCode, jcategoryCode), HttpStatus.OK);
+    }
+
 }
