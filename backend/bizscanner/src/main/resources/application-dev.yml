@@ -12,6 +12,10 @@ spring:
       hibernate:
         format_sql: true
     open-in-view: false
+  redis:
+    host: redis
+    port: ${REDIS_PORT}
+    password: ${REDIS_PASSWORD}
 
 server:
   servlet:
