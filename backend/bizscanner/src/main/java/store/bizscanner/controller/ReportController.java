@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import store.bizscanner.dto.response.earningexpenditure.ConsumptionTrendResponse;
 import store.bizscanner.dto.response.salesResponse.QuarterSalesCountListResponse;
 import store.bizscanner.dto.response.cchange.CchangeResponse;
 import store.bizscanner.dto.response.population.BestPopulationResponse;
@@ -27,6 +28,7 @@ public class ReportController {
     private final StoreService storeService;
     private final RentService rentService;
     private final CchangeService cchangeService;
+    private final EarningExpenditureService earningExpenditureService;
 
     @GetMapping("/best-population/{careaCode}")
     public ResponseEntity<BestPopulationResponse> bestPopulation(@PathVariable String careaCode) {
@@ -83,4 +85,8 @@ public class ReportController {
         return new ResponseEntity<>(salesService.getSalesAmount(careaCode, jcategoryCode), HttpStatus.OK);
     }
 
+    @GetMapping("/expenditure/{careaCode}")
+    public ResponseEntity<ConsumptionTrendResponse> getConsumptionTrend(@PathVariable String careaCode) {
+        return new ResponseEntity<>(earningExpenditureService.getConsumptionTrend(careaCode), HttpStatus.OK);
+    }
 }
