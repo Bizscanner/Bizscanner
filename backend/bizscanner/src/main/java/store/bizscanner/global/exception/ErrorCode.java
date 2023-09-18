@@ -10,7 +10,8 @@ public enum ErrorCode {
     INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "Invalid parameter included"),
     REPORT_RESOURCE_NOT_FOUND(HttpStatus.NOT_FOUND, "Report Resource not exists"),
     REQUEST_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, "Request is not allowed"),
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error"),
+    RECOMMEND_JCATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "추천할 업종이 없습니다");
 
     private final HttpStatus httpStatus;
     private final String message;
