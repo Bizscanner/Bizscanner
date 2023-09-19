@@ -3,10 +3,14 @@ package store.bizscanner.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import store.bizscanner.dto.response.jcategoryrecommend.DongInfoResponse;
+import store.bizscanner.dto.response.jcategoryrecommend.DongResponse;
 import store.bizscanner.entity.Carea;
 import store.bizscanner.global.exception.CustomException;
 import store.bizscanner.global.exception.ErrorCode;
 import store.bizscanner.repository.CareaRepository;
+
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,5 +25,16 @@ public class CareaService {
      */
     public Carea findByCareaCode(String careaCode){
         return careaRepository.findByCareaCode(careaCode).orElseThrow(() -> new CustomException(ErrorCode.REPORT_RESOURCE_NOT_FOUND));
+    }
+
+    /**
+     * 상권 리스트 API
+     * @param dong
+     * @return 행정동에 포함 된 상권 리스트
+     */
+    public DongResponse findByDong(String dong) {
+        return new DongResponse(careaRepository.findByDong(dong).stream()
+                        .map(DongInfoResponse::new)
+                        .collect(Collectors.toList()));
     }
 }
