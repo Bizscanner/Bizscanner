@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import store.bizscanner.dto.response.population.BestPopulationResponse;
 import store.bizscanner.dto.response.population.PopulationResponse;
 import store.bizscanner.dto.response.population.QuarterlyPopulationResponse;
+import store.bizscanner.entity.Best;
 import store.bizscanner.entity.Population;
 import store.bizscanner.entity.enums.Age;
 import store.bizscanner.entity.enums.Day;
@@ -48,25 +49,6 @@ public class PopulationService {
     }
 
     /**
-     * Best 항목을 찾기 위한 Inner Class
-     * 여러 Enum Type에 대응하기 위해 Object로 선언
-     * value를 기준으로 정렬하는 규칙 생성
-     */
-    public static class Best implements Comparable<Best> {
-        Integer value;
-        Object object;
-
-        public Best (Integer value, Object object) {
-            this.value = value;
-            this.object = object;
-        }
-        @Override
-        public int compareTo(Best o) {
-            return o.value - this.value;
-        }
-    }
-
-    /**
      * Best 유동인구 - 성별
      * @param population
      * @return Best 성별
@@ -74,10 +56,10 @@ public class PopulationService {
     public Object getBestGender(Population population) {
         PriorityQueue<Best> maxPopulation = new PriorityQueue<>();
 
-        maxPopulation.add(new Best(population.getMalePopulation(), Gender.MALE));
-        maxPopulation.add(new Best(population.getFemalePopulation(), Gender.FEMALE));
+        maxPopulation.add(new Best(population.getMalePopulation().longValue(), Gender.MALE));
+        maxPopulation.add(new Best(population.getFemalePopulation().longValue(), Gender.FEMALE));
 
-        return maxPopulation.poll().object;
+        return maxPopulation.poll().getObject();
     }
 
     /**
@@ -88,14 +70,14 @@ public class PopulationService {
     public Object getBestAge(Population population) {
         PriorityQueue<Best> maxPopulation = new PriorityQueue<>();
 
-        maxPopulation.add(new Best(population.getTeensPopulation(), Age.TEENS));
-        maxPopulation.add(new Best(population.getTwentiesPopulation(), Age.TWENTIES));
-        maxPopulation.add(new Best(population.getThirtiesPopulation(), Age.THIRTIES));
-        maxPopulation.add(new Best(population.getFortiesPopulation(), Age.FORTIES));
-        maxPopulation.add(new Best(population.getFiftiesPopulation(), Age.FIFTIES));
-        maxPopulation.add(new Best(population.getSixtiesPopulation(), Age.SIXTIES));
+        maxPopulation.add(new Best(population.getTeensPopulation().longValue(), Age.TEENS));
+        maxPopulation.add(new Best(population.getTwentiesPopulation().longValue(), Age.TWENTIES));
+        maxPopulation.add(new Best(population.getThirtiesPopulation().longValue(), Age.THIRTIES));
+        maxPopulation.add(new Best(population.getFortiesPopulation().longValue(), Age.FORTIES));
+        maxPopulation.add(new Best(population.getFiftiesPopulation().longValue(), Age.FIFTIES));
+        maxPopulation.add(new Best(population.getSixtiesPopulation().longValue(), Age.SIXTIES));
 
-        return maxPopulation.poll().object;
+        return maxPopulation.poll().getObject();
     }
 
     /**
@@ -106,15 +88,15 @@ public class PopulationService {
     public Object getBestDay(Population population) {
         PriorityQueue<Best> maxPopulation = new PriorityQueue<>();
 
-        maxPopulation.add(new Best(population.getMondayPopulation(), Day.MONDAY));
-        maxPopulation.add(new Best(population.getTuesdayPopulation(), Day.TUESDAY));
-        maxPopulation.add(new Best(population.getWednesdayPopulation(), Day.WEDNESDAY));
-        maxPopulation.add(new Best(population.getThursdayPopulation(), Day.THURSDAY));
-        maxPopulation.add(new Best(population.getFridayPopulation(), Day.FRIDAY));
-        maxPopulation.add(new Best(population.getSaturdayPopulation(), Day.SATURDAY));
-        maxPopulation.add(new Best(population.getSundayPopulation(), Day.SUNDAY));
+        maxPopulation.add(new Best(population.getMondayPopulation().longValue(), Day.MONDAY));
+        maxPopulation.add(new Best(population.getTuesdayPopulation().longValue(), Day.TUESDAY));
+        maxPopulation.add(new Best(population.getWednesdayPopulation().longValue(), Day.WEDNESDAY));
+        maxPopulation.add(new Best(population.getThursdayPopulation().longValue(), Day.THURSDAY));
+        maxPopulation.add(new Best(population.getFridayPopulation().longValue(), Day.FRIDAY));
+        maxPopulation.add(new Best(population.getSaturdayPopulation().longValue(), Day.SATURDAY));
+        maxPopulation.add(new Best(population.getSundayPopulation().longValue(), Day.SUNDAY));
 
-        return maxPopulation.poll().object;
+        return maxPopulation.poll().getObject();
     }
 
     /**
@@ -125,14 +107,14 @@ public class PopulationService {
     public Object getBestTime(Population population) {
         PriorityQueue<Best> maxPopulation = new PriorityQueue<>();
 
-        maxPopulation.add(new Best(population.getTime1Population(), Time.TIME1));
-        maxPopulation.add(new Best(population.getTime2Population(), Time.TIME2));
-        maxPopulation.add(new Best(population.getTime3Population(), Time.TIME3));
-        maxPopulation.add(new Best(population.getTime4Population(), Time.TIME4));
-        maxPopulation.add(new Best(population.getTime5Population(), Time.TIME5));
-        maxPopulation.add(new Best(population.getTime6Population(), Time.TIME6));
+        maxPopulation.add(new Best(population.getTime1Population().longValue(), Time.TIME1));
+        maxPopulation.add(new Best(population.getTime2Population().longValue(), Time.TIME2));
+        maxPopulation.add(new Best(population.getTime3Population().longValue(), Time.TIME3));
+        maxPopulation.add(new Best(population.getTime4Population().longValue(), Time.TIME4));
+        maxPopulation.add(new Best(population.getTime5Population().longValue(), Time.TIME5));
+        maxPopulation.add(new Best(population.getTime6Population().longValue(), Time.TIME6));
 
-        return maxPopulation.poll().object;
+        return maxPopulation.poll().getObject();
     }
 
     /**
