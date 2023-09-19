@@ -17,6 +17,7 @@ module.exports = {
         disabled: '#9CA2AA',
         background: '#F4F6FA',
         outline: '#E5E5E5',
+        dim: 'rgba(0, 0, 0, 0.40)',
       },
       borderRadius: {
         small: '10px',

@@ -23,9 +23,11 @@ function Button({ width, height, variant, radius, onClick, children }) {
     <div>
       <button
         className={`
-        ${buttonConfig[variant].bgColor} 
-        ${buttonConfig[variant].color} 
-        ${buttonConfig[radius]}`}
+          ${buttonConfig[variant].bgColor} 
+          ${buttonConfig[variant].color} 
+          ${buttonConfig[radius]} 
+          font-bold
+        `}
         style={{ width: `${width}`, height: `${height}` }}
         onClick={onClick}
       >
