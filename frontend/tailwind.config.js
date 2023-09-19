@@ -16,6 +16,7 @@ module.exports = {
         black: '#000000',
         disabled: '#9CA2AA',
         background: '#F4F6FA',
+        outline: '#E5E5E5',
       },
     },
   },

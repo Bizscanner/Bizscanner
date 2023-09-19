@@ -1,8 +1,22 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import { ProviderWrapper } from '@/redux/ProviderWrapper';
+import Header from './Header';
 
-const inter = Inter({ subsets: ['latin'] });
+const tMoney = localFont({
+  src: [
+    {
+      path: '../../public/fonts/TmoneyRoundWindRegular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/TmoneyRoundWindExtraBold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+});
 
 export const metadata = {
   title: 'Create Next App',
@@ -11,8 +25,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="ko" className={tMoney.className}>
+      <body>
+        <Header></Header>
         <ProviderWrapper>{children}</ProviderWrapper>
       </body>
     </html>
