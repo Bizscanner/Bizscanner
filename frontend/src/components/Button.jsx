@@ -1,33 +1,13 @@
 'use client';
 
+import classnames from 'classnames';
 import React from 'react';
 
-function Button({ width, height, variant, radius, onClick, children }) {
-  const buttonConfig = {
-    // Colors
-    primary: {
-      bgColor: 'bg-primary',
-      color: 'text-white',
-    },
-    disabled: {
-      bgColor: 'bg-disabled',
-      color: 'text-white',
-    },
-    //Border-radius
-    small: 'rounded-small',
-    medium: 'rounded-medium',
-    large: 'rounded-large',
-  };
-
+function Button({ width, height, className, onClick, children }) {
   return (
     <div>
       <button
-        className={`
-          ${buttonConfig[variant].bgColor} 
-          ${buttonConfig[variant].color} 
-          ${buttonConfig[radius]} 
-          font-bold
-        `}
+        className={classnames(`font-bold`, className)}
         style={{ width: `${width}`, height: `${height}` }}
         onClick={onClick}
       >
