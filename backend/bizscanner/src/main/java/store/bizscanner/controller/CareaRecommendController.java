@@ -11,6 +11,8 @@ import store.bizscanner.dto.request.CareaRecommendRequest;
 import store.bizscanner.dto.response.carearecommend.CareaRecommendResponse;
 import store.bizscanner.service.CareaRecommendService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin("*")
@@ -18,7 +20,7 @@ public class CareaRecommendController {
     private final CareaRecommendService careaRecommendService;
 
     @PostMapping("/carea-recommend")
-    public ResponseEntity<CareaRecommendResponse> getCarearecommend(@RequestBody CareaRecommendRequest request) {
+    public ResponseEntity<CareaRecommendResponse> getCarearecommend(@Valid @RequestBody CareaRecommendRequest request) {
         return new ResponseEntity<>(careaRecommendService.getCareaRecommend(request), HttpStatus.OK);
     }
 }
