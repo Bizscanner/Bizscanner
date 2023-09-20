@@ -63,4 +63,7 @@ public interface SalesRepository extends JpaRepository<Sales, Long> {
             "WHERE s.careaCode = :careaCode " +
             "GROUP BY s.careaCode")
     Optional<SumSalesMapping> findSumSalesDay(@Param("careaCode") String careaCode);
+
+    @Query("SELECT DISTINCT s.jcategoryCode FROM Sales s")
+    List<String> findDistinctJcategory();
 }
