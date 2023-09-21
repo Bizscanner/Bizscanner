@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 //import store.bizscanner.global.config.filter.TokenAuthenticationFilter;
+import store.bizscanner.global.config.filter.TokenAuthenticationFilter;
 import store.bizscanner.global.config.jwt.TokenProvider;
 import store.bizscanner.global.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import store.bizscanner.global.config.oauth.OAuth2SuccessHandler;
@@ -49,7 +50,7 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // 헤더를 확인할 커스텀 필터 추가
-//        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         // 토큰 재발급 URL은 인증 없이 접근 가능하도록 설정. 나머지 API URL은 인증 필요
         http.authorizeRequests()
@@ -87,10 +88,10 @@ public class WebSecurityConfig {
                 userService);
     }
 
-//    @Bean
-//    public TokenAuthenticationFilter tokenAuthenticationFilter() {
-//        return new TokenAuthenticationFilter(tokenProvider);
-//    }
+    @Bean
+    public TokenAuthenticationFilter tokenAuthenticationFilter() {
+        return new TokenAuthenticationFilter(tokenProvider);
+    }
 
     @Bean
     public OAuth2AuthorizationRequestBasedOnCookieRepository oAuth2AuthorizationRequestBasedOnCookieRepository() {
