@@ -26,7 +26,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ko" className={tMoney.className}>
-      <body>
+      <body className="flex flex-col min-h-screen">
         <Header></Header>
         <ProviderWrapper>{children}</ProviderWrapper>
       </body>

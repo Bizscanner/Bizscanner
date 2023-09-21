@@ -20,6 +20,11 @@ const nextConfig = {
       },
     );
 
+    config.module.rules.push({
+      test: /\.geojson$/,
+      use: ['json-loader'],
+    });
+
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
     fileLoaderRule.exclude = /\.svg$/i;
 
