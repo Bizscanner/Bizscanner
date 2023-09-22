@@ -1,23 +1,63 @@
 package store.bizscanner.service;
 
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import store.bizscanner.dto.response.cchange.CchangeResponse;
+import store.bizscanner.entity.Cchange;
 import store.bizscanner.global.exception.CustomException;
+import store.bizscanner.global.exception.ErrorCode;
+import store.bizscanner.repository.CchangeRepository;
 
-@SpringBootTest
-@Transactional
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 class CchangeServiceTest {
 
-    @Autowired
+    @InjectMocks
     private CchangeService cchangeService;
 
+    @Mock
+    private CchangeRepository cchangeRepository;
+
+    String careaCode = "2110008";
+
+    @DisplayName("상권변화지표_조회_성공")
     @Test
-    void Find_Cchange_EmptyCheck(){
-        Assertions.assertThatThrownBy(() -> cchangeService.findBycareaCode("123"))
+    void successFindByCareaCodeTest() {
+        // given
+        Optional<Cchange> cchange = Optional.of(new Cchange());
+
+        // mocking
+        when(cchangeRepository.findTopByCareaCodeOrderByYearCodeDescQuarterCodeDesc(any())).thenReturn(cchange);
+
+        // when
+        CchangeResponse cchangeResponse = cchangeService.findBycareaCode(careaCode);
+
+        // then
+        assertThat(cchangeResponse).isInstanceOf(CchangeResponse.class);
+    }
+
+    @DisplayName("상권변화지표_조회_실패")
+    @Test
+    void failFindByCareaCodeTest() {
+        // given
+        Optional<Cchange> cchange = Optional.empty();
+
+        // mocking
+        when(cchangeRepository.findTopByCareaCodeOrderByYearCodeDescQuarterCodeDesc(any())).thenReturn(cchange);
+
+        // when
+        // then
+        assertThatThrownBy(() -> cchangeService.findBycareaCode(careaCode))
                 .isInstanceOf(CustomException.class)
-                .hasMessage("Report Resource not exists");
+                .hasMessageContaining(ErrorCode.REPORT_RESOURCE_NOT_FOUND.getMessage());
     }
 }
