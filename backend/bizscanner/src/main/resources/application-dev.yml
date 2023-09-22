@@ -16,6 +16,22 @@ spring:
     host: redis
     port: ${REDIS_PORT}
     password: ${REDIS_PASSWORD}
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${OAUTH2_GOOGLE_CLIENT_ID}
+            client-secret: ${OAUTH2_GOOGLE_CLIENT_SECRET}
+            redirect-uri: ${OAUTH2_GOOGLE_CLIENT_SECRET}
+            authorization-grant-type: authorization_code
+            scope:
+              - profile
+              - email
+
+jwt:
+  issuer: ${JWT_ISSUER}
+  secret_key: ${JWT_SECRET_KEY}
 
 server:
   servlet:
