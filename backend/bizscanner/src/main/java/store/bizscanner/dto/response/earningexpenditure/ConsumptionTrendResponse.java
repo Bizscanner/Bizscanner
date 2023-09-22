@@ -2,8 +2,10 @@ package store.bizscanner.dto.response.earningexpenditure;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter @AllArgsConstructor
+@NoArgsConstructor
 public class ConsumptionTrendResponse {
 
     private Long totalExpenditure;
