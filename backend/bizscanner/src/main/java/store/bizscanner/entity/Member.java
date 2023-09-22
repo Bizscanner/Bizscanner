@@ -1,11 +1,14 @@
 package store.bizscanner.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -30,10 +33,17 @@ public class Member implements UserDetails { // UserDetails를 상속받아 인�
     @Column(name = "nickname", unique = true)
     private String nickname;
 
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private LocalDateTime updatedAt = LocalDateTime.now();
+
     @Builder
     public Member(String email, String provider, String nickname) {
         this.email = email;
-//        this.password = password;
         this.nickname = nickname;
         this.provider = provider;
     }
