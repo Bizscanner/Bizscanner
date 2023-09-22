@@ -9,12 +9,12 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
-// User 엔티티
-@Table(name = "user")
+// Member 엔티티
+@Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class User implements UserDetails { // UserDetails를 상속받아 인증 객체로 사용
+public class Member implements UserDetails { // UserDetails를 상속받아 인증 객체로 사용
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,17 +24,18 @@ public class User implements UserDetails { // UserDetails를 상속받아 인증
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "provider")
+    private String provider;
 
     @Column(name = "nickname", unique = true)
     private String nickname;
 
     @Builder
-    public User(String email, String password, String nickname) {
+    public Member(String email, String provider, String nickname) {
         this.email = email;
-        this.password = password;
+//        this.password = password;
         this.nickname = nickname;
+        this.provider = provider;
     }
 
     // 권한 반환
@@ -43,17 +44,17 @@ public class User implements UserDetails { // UserDetails를 상속받아 인증
         return List.of(new SimpleGrantedAuthority("user"));
     }
 
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
     // 사용자의 id를 반환(고유한 값)
     @Override
     public String getUsername() {
         return email;
     }
 
-    // 사용자의 패스워드를 반환
-    @Override
-    public String getPassword() {
-        return password;
-    }
 
     // 계정 만료 여부 반환
     @Override
@@ -84,7 +85,7 @@ public class User implements UserDetails { // UserDetails를 상속받아 인증
     }
 
     // 사용자 이름 변경
-    public User update(String nickname) {
+    public Member update(String nickname) {
         this.nickname = nickname;
 
         return this;

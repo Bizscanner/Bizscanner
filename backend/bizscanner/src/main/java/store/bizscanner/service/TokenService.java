@@ -2,7 +2,7 @@ package store.bizscanner.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import store.bizscanner.entity.User;
+import store.bizscanner.entity.Member;
 import store.bizscanner.global.config.jwt.TokenProvider;
 
 import java.time.Duration;
@@ -15,7 +15,7 @@ public class TokenService {
     // 토큰 생성자
     private final TokenProvider tokenProvider;
     private final RefreshTokenService refreshTokenService;
-    private final UserService userService;
+    private final MemberService memberService;
 
     public String createNewAccessToken(String refreshToken) {
         // 토큰 유효성 검사에 실패하면 에외 발생
@@ -26,10 +26,10 @@ public class TokenService {
         // refreshToken을 통해서 User 탐색, User의 Id를 획득
         Long userId = refreshTokenService.findByRefreshToken(refreshToken).getUserId();
         // userId를 통해서 User 탐색
-        User user = userService.findById(userId);
+        Member member = memberService.findById(userId);
 
         // 토큰 생성자로 Access Token을 생성.
-        return tokenProvider.generateToken(user, Duration.ofHours(2));
+        return tokenProvider.generateToken(member, Duration.ofHours(2));
     }
 
 }

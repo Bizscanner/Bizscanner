@@ -20,7 +20,7 @@ import store.bizscanner.global.config.oauth.OAuth2AuthorizationRequestBasedOnCoo
 import store.bizscanner.global.config.oauth.OAuth2SuccessHandler;
 import store.bizscanner.global.config.oauth.OAuth2UserCustomService;
 import store.bizscanner.repository.RefreshTokenRepository;
-import store.bizscanner.service.UserService;
+import store.bizscanner.service.MemberService;
 
 @RequiredArgsConstructor
 @Configuration
@@ -29,7 +29,7 @@ public class WebSecurityConfig {
     private final OAuth2UserCustomService oAuth2UserCustomService;
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
-    private final UserService userService;
+    private final MemberService memberService;
 
     @Bean
     public WebSecurityCustomizer configure() { // 스프링 시큐리티 기능 비활성화
@@ -85,7 +85,7 @@ public class WebSecurityConfig {
         return new OAuth2SuccessHandler(tokenProvider,
                 refreshTokenRepository,
                 oAuth2AuthorizationRequestBasedOnCookieRepository(),
-                userService);
+                memberService);
     }
 
     @Bean

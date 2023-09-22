@@ -4,19 +4,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import store.bizscanner.entity.User;
-import store.bizscanner.service.UserService;
+import store.bizscanner.entity.Member;
+import store.bizscanner.service.MemberService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
 @RestController
-public class UserController {
+public class MemberController {
 
-    private final UserService userService;
+    private final MemberService memberService;
 
     @GetMapping("user/{userid}")
-    public ResponseEntity<User> getUser(@PathVariable("userid") Long userId) {
-        return new ResponseEntity<>(userService.findById(userId), HttpStatus.OK);
+    public ResponseEntity<Member> getUser(@PathVariable("userid") Long userId) {
+        return new ResponseEntity<>(memberService.findById(userId), HttpStatus.OK);
     }
 
 

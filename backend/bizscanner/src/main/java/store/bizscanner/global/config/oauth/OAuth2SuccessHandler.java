@@ -8,11 +8,11 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 import store.bizscanner.entity.RefreshToken;
-import store.bizscanner.entity.User;
+import store.bizscanner.entity.Member;
 import store.bizscanner.global.config.jwt.TokenProvider;
 import store.bizscanner.global.util.CookieUtil;
 import store.bizscanner.repository.RefreshTokenRepository;
-import store.bizscanner.service.UserService;
+import store.bizscanner.service.MemberService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,29 +26,28 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     public static final String REFRESH_TOKEN_COOKIE_NAME = "refresh_token";
     public static final Duration REFRESH_TOKEN_DURATION = Duration.ofDays(14);
     public static final Duration ACCESS_TOKEN_DURATION = Duration.ofDays(1);
-    public static final String REDIRECT_URL = "https://bizscanner.store"; // 리다이렉트할 URL
+    public static final String REDIRECT_URL = "http://localhost:3000"; // 리다이렉트할 URL
 
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
-    private final UserService userService;
+    private final MemberService memberService;
 
     // 인증 성공 시 호출
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         // email 기준으로 User 탐색
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        User user = userService.findByEmail((String) oAuth2User.getAttributes().get("email"));
+        Member member = memberService.findByEmail((String) oAuth2User.getAttributes().get("email"));
 
         // Refresh Token 생성 -> 저장 -> 쿠키에 저장
-        String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN_DURATION);
-        saveRefreshToken(user.getUserId(), refreshToken);
+        String refreshToken = tokenProvider.generateToken(member, REFRESH_TOKEN_DURATION);
+        saveRefreshToken(member.getUserId(), refreshToken);
         addRefreshTokenToCookie(request, response, refreshToken);
-        System.out.println("----------addRefreshTokenToCookie--------- ");
 
 
         // Access Token 생성 -> 경로에 Access Token 추가
-        String accessToken = tokenProvider.generateToken(user, ACCESS_TOKEN_DURATION);
+        String accessToken = tokenProvider.generateToken(member, ACCESS_TOKEN_DURATION);
         String targetUrl = getTargetUrl(accessToken);
         // 인증 관련 설정값, 쿠키 제거
         clearAuthenticationAttributes(request, response);
