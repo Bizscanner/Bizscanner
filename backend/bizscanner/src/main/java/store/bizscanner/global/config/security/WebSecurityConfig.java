@@ -6,14 +6,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-//import store.bizscanner.global.config.filter.TokenAuthenticationFilter;
 import store.bizscanner.global.config.filter.TokenAuthenticationFilter;
 import store.bizscanner.global.config.jwt.TokenProvider;
 import store.bizscanner.global.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
@@ -33,12 +31,6 @@ public class WebSecurityConfig {
     private final MemberService memberService;
     private final RedisRefreshTokenService redisRefreshTokenService;
 
-    @Bean
-    public WebSecurityCustomizer configure() { // 스프링 시큐리티 기능 비활성화
-        return (web) -> web.ignoring()
-                .antMatchers("/img/**", "/css/**", "/js/**");
-//                .antMatchers("/static/**");
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -56,9 +48,9 @@ public class WebSecurityConfig {
 
         // 토큰 재발급 URL은 인증 없이 접근 가능하도록 설정. 나머지 API URL은 인증 필요
         http.authorizeRequests()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/api/token").permitAll()
 //                .antMatchers("/api/**").authenticated()
-                .antMatchers("/api/**").permitAll()
                 .anyRequest().permitAll();
 
         http.oauth2Login()

@@ -11,7 +11,6 @@ import store.bizscanner.entity.RefreshToken;
 import store.bizscanner.entity.Member;
 import store.bizscanner.global.config.jwt.TokenProvider;
 import store.bizscanner.global.util.CookieUtil;
-import store.bizscanner.repository.RedisRefreshTokenRepository;
 import store.bizscanner.repository.RefreshTokenRepository;
 import store.bizscanner.service.MemberService;
 import store.bizscanner.service.RedisRefreshTokenService;
