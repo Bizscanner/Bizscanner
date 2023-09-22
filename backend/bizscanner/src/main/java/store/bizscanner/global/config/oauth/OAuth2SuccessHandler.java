@@ -11,8 +11,10 @@ import store.bizscanner.entity.RefreshToken;
 import store.bizscanner.entity.Member;
 import store.bizscanner.global.config.jwt.TokenProvider;
 import store.bizscanner.global.util.CookieUtil;
+import store.bizscanner.repository.RedisRefreshTokenRepository;
 import store.bizscanner.repository.RefreshTokenRepository;
 import store.bizscanner.service.MemberService;
+import store.bizscanner.service.RedisRefreshTokenService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +34,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     private final RefreshTokenRepository refreshTokenRepository;
     private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
     private final MemberService memberService;
+    private final RedisRefreshTokenService redisRefreshTokenService;
 
     // 인증 성공 시 호출
     @Override
@@ -49,6 +52,11 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         // Access Token 생성 -> 경로에 Access Token 추가
         String accessToken = tokenProvider.generateToken(member, ACCESS_TOKEN_DURATION);
         String targetUrl = getTargetUrl(accessToken);
+
+        // 생성된 Refresh Token Redis에 저장
+        redisRefreshTokenService.saveRedisRefreshToken(member.getEmail(), accessToken, refreshToken);
+
+
         // 인증 관련 설정값, 쿠키 제거
         clearAuthenticationAttributes(request, response);
         // 리다이렉트

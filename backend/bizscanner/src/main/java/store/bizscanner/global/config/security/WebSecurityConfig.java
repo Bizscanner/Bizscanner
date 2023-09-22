@@ -21,6 +21,7 @@ import store.bizscanner.global.config.oauth.OAuth2SuccessHandler;
 import store.bizscanner.global.config.oauth.OAuth2UserCustomService;
 import store.bizscanner.repository.RefreshTokenRepository;
 import store.bizscanner.service.MemberService;
+import store.bizscanner.service.RedisRefreshTokenService;
 
 @RequiredArgsConstructor
 @Configuration
@@ -30,6 +31,7 @@ public class WebSecurityConfig {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final MemberService memberService;
+    private final RedisRefreshTokenService redisRefreshTokenService;
 
     @Bean
     public WebSecurityCustomizer configure() { // 스프링 시큐리티 기능 비활성화
@@ -85,7 +87,7 @@ public class WebSecurityConfig {
         return new OAuth2SuccessHandler(tokenProvider,
                 refreshTokenRepository,
                 oAuth2AuthorizationRequestBasedOnCookieRepository(),
-                memberService);
+                memberService, redisRefreshTokenService);
     }
 
     @Bean
