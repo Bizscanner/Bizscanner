@@ -21,8 +21,8 @@ public class Member implements UserDetails { // UserDetails를 상속받아 인�
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", updatable = false)
-    private Long userId;
+    @Column(name = "member_id", updatable = false)
+    private Long memberId;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -33,13 +33,6 @@ public class Member implements UserDetails { // UserDetails를 상속받아 인�
     @Column(name = "nickname", unique = true)
     private String nickname;
 
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private LocalDateTime updatedAt = LocalDateTime.now();
 
     @Builder
     public Member(String email, String provider, String nickname) {
