@@ -1,6 +1,6 @@
 'use clinet';
 import classnames from 'classnames';
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useRef, useEffect } from 'react';
 import ArrowDown from '@/assets/icons/arrowDown.svg';
 
 const DropdownContext = createContext(null);
@@ -25,7 +25,42 @@ function DropdownProvider({ children, className }) {
 }
 
 function DropdownContainer({ children, className }) {
-  return <div className={classnames('z-10 relative', className)}>{children}</div>;
+  const dropdownContext = useContext(DropdownContext);
+  const ref = useRef(null);
+
+  const { isOpen, onChange } = dropdownContext;
+
+  const onClick = () => {
+    onChange();
+  };
+
+  useEffect(() => {
+    // 임시로 비활성화
+    // const handleClick = (e) => {
+    //   if (ref.current && !ref.current.contains(e.target)) {
+    //     onChange();
+    //   }
+    // };
+
+    // console.log(isOpen);
+    // if (isOpen) {
+    //   window.addEventListener('mousedown', handleClick);
+    // } else {
+    //   window.removeEventListener('mousedown', handleClick);
+    // }
+
+    return;
+  }, [ref, isOpen]);
+
+  return (
+    <div
+      className={classnames('relative', className, isOpen ? 'z-30' : '')}
+      ref={ref}
+      onClick={onClick}
+    >
+      {children}
+    </div>
+  );
 }
 
 function DropdownLabel({ children }) {
@@ -35,11 +70,7 @@ function DropdownLabel({ children }) {
 function DropdownTrigger({ children }) {
   const dropdownContext = useContext(DropdownContext);
 
-  const { onChange, isOpen } = dropdownContext;
-
-  const onClick = () => {
-    onChange();
-  };
+  const { isOpen } = dropdownContext;
 
   return (
     <button
@@ -47,7 +78,6 @@ function DropdownTrigger({ children }) {
         'flex justify-between w-full text-left border-b-2 ',
         isOpen ? 'border-primary' : 'border-underline',
       )}
-      onClick={onClick}
     >
       <span className="text-2xl">{children}</span>
       <ArrowDown
@@ -67,7 +97,7 @@ function DropdownOptionContainer({ children }) {
 
   return (
     isOpen && (
-      <div className="mt-2 overflow-hidden rounded-small text-disabled shadow-dropdown">
+      <div className="absolute z-30 w-full mt-2 overflow-hidden overflow-y-scroll bg-white h-44 rounded-small text-disabled shadow-dropdown">
         {children}
       </div>
     )
@@ -75,12 +105,7 @@ function DropdownOptionContainer({ children }) {
 }
 
 function DropdownOption({ children, onSelect, ...props }) {
-  const dropdownContext = useContext(DropdownContext);
-
-  const { onChange } = dropdownContext;
-
   const onClick = () => {
-    onChange();
     onSelect?.(props);
   };
 
@@ -91,23 +116,10 @@ function DropdownOption({ children, onSelect, ...props }) {
   );
 }
 
-function DropdownBackground() {
-  const dropdownContext = useContext(DropdownContext);
-
-  const { onChange, isOpen } = dropdownContext;
-
-  const onClick = () => {
-    onChange();
-  };
-
-  return isOpen && <div className="fixed top-0 left-0 w-[100vw] h-[100vh]" onClick={onClick}></div>;
-}
-
 export const Dropdown = Object.assign(DropdownProvider, {
   Trigger: DropdownTrigger,
   OptionContainer: DropdownOptionContainer,
   Option: DropdownOption,
   Label: DropdownLabel,
-  Background: DropdownBackground,
   Container: DropdownContainer,
 });

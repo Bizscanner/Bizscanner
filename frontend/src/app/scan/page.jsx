@@ -6,8 +6,8 @@ import Controller from './Controller';
 function page() {
   return (
     <div className="relative flex grow">
-      <Controller />
       <Map commerialDistricts={data} />
+      <Controller />
     </div>
   );
 }
