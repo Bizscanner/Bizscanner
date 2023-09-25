@@ -6,12 +6,14 @@ import { SearchProvider } from './SearchContext';
 import JobSelection from './JobSelection';
 import BizSelection from './BizSelection';
 import BackIcon from '@/assets/icons/undo.svg';
+import CDistrictSelection from './CDistrictSelection';
 
 const Stage = {
   INIT: Selection,
   PLACE: PlaceSelection,
   BIZ: BizSelection,
   JOB: JobSelection,
+  CDISTRICT: CDistrictSelection
 };
 
 function Controller() {

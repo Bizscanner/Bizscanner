@@ -6,7 +6,7 @@ import sigunguData from '../../../public/시군구.json';
 import dongData from '../../../public/행정동.json';
 import { useSearchDispatch, useSearchState } from './SearchContext';
 
-function PlaceSelection() {
+function PlaceSelection({ onChangeStage }) {
   const { dongName, sigunguCode, sigunguName } = useSearchState();
   const dispatch = useSearchDispatch();
 
@@ -25,6 +25,10 @@ function PlaceSelection() {
 
   const onSelectDong = ({ code, name }) => {
     dispatch({ type: 'SET_DONG', dongCode: code, dongName: name });
+  };
+
+  const onClickNext = () => {
+    onChangeStage('CDISTRICT');
   };
 
   return (
@@ -56,13 +60,14 @@ function PlaceSelection() {
           <Dropdown.Trigger>{dongName}</Dropdown.Trigger>
           <Dropdown.OptionContainer>
             {dong[sigunguCode].map(({ code, name }) => (
-              <Dropdown.Option id={code} code={code} name={name} onSelect={onSelectDong}>
+              <Dropdown.Option id={code} code={code} name={name} onSelect={onSelectDong} key={code}>
                 {name}
               </Dropdown.Option>
             ))}
           </Dropdown.OptionContainer>
         </Dropdown.Container>
       </Dropdown>
+      <button onClick={onClickNext}>Next</button>
     </div>
   );
 }
