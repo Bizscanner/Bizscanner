@@ -9,12 +9,14 @@ import store.bizscanner.entity.Carea;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DongInfoResponse {
+    private String careaTypeCode;
     private String careaCode;
     private String careaName;
     private Double latitude;
     private Double longitude;
 
     public DongInfoResponse(Carea carea){
+        this.careaTypeCode = carea.getCareaTypeCode();
         this.careaCode = carea.getCareaCode();
         this.careaName = carea.getCareaName();
         this.latitude = carea.getLatitude();
