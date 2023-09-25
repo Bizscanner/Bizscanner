@@ -36,7 +36,13 @@ function PlaceSelection() {
           <Dropdown.Trigger>{sigunguName}</Dropdown.Trigger>
           <Dropdown.OptionContainer>
             {sigungu.map(({ code, name }) => (
-              <Dropdown.Option id={code} code={code} name={name} onSelect={onSelectSigungu}>
+              <Dropdown.Option
+                id={code}
+                code={code}
+                name={name}
+                onSelect={onSelectSigungu}
+                key={code}
+              >
                 {name}
               </Dropdown.Option>
             ))}

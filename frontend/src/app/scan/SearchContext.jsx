@@ -10,10 +10,12 @@ const initialState = {
   dongName: '청운효자동',
   sigunguCode: 11110,
   sigunguName: '종로구',
+  bizCode: '',
+  bizName: '',
+  jobCode: '',
 };
 
 function reducer(state, action) {
-    
   switch (action.type) {
     case 'SET_SIGUNGU':
       console.log(action);
@@ -30,6 +32,12 @@ function reducer(state, action) {
         ...state,
         dongCode: action.dongCode,
         dongName: action.dongName,
+      };
+    case 'SET_BIZ':
+      return {
+        ...state,
+        bizCode: action.bizCode,
+        bizName: action.bizName,
       };
 
     default:

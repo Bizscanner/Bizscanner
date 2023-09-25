@@ -1,14 +1,16 @@
 import React from 'react';
 import jdata from '../../../public/jcategory.json';
+import { useSearchState } from './SearchContext';
 
-function JobSelection({ jcategory }) {
-  const jList = jdata[jcategory.code];
+function JobSelection({ onChangeStage }) {
+  const { bizCode, bizName } = useSearchState();
+  const jList = jdata[bizCode];
 
   return (
     <div className="flex flex-col">
-      <div className="text-2xl text-center py-4">{jcategory.name} 내 세부 업종을 선택해주세요.</div>
+      <div className="py-4 text-2xl text-center">{bizName} 내 세부 업종을 선택해주세요.</div>
       <div className="h-48 overflow-y-auto">
-        <div className="grid grid-cols-3 gap-1 justify-items-center py-3">
+        <div className="grid grid-cols-3 gap-1 py-3 justify-items-center">
           {jList.map((job, idx) => {
             return (
               <button
