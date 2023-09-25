@@ -21,7 +21,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: "prometheus"
+        include: health, info, metrics, prometheus
   server:
     port: ${PROMETHEUS_PORT}
     base-path: ${PROMETHEUS_PATH}
