@@ -1,6 +1,7 @@
 package store.bizscanner.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import store.bizscanner.dto.response.jcategoryrecommend.DongInfoResponse;
@@ -31,7 +32,11 @@ public class CareaService {
      * 상권 리스트 API
      * @param dong
      * @return 행정동에 포함 된 상권 리스트
+     *
+     * Cacheable
+     * 기존에 검색한 동 리스트는 스프링 캐시에 저장하여 다시 조회할 때 디비를 거치지 않고 반환
      */
+    @Cacheable(value = "dong_carea", key = "#dong")
     public DongResponse findByDong(String dong) {
         return new DongResponse(careaRepository.findByDong(dong).stream()
                         .map(DongInfoResponse::new)

@@ -5,10 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import store.bizscanner.entity.Carea;
 
+import java.io.Serializable;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DongInfoResponse {
+public class DongInfoResponse implements Serializable {
     private String careaTypeCode;
     private String careaCode;
     private String careaName;
