@@ -1,7 +1,9 @@
 import React from 'react';
 import { useSearchDispatch } from './SearchContext';
+import RecommendButton from './RecommendButton';
+import { searchMode } from './constant';
 
-function BizSelection({ onChangeStage }) {
+function BizSelection({ onChangeStage, mode }) {
   const Jtype = [
     {
       name: '외식업',
@@ -21,7 +23,7 @@ function BizSelection({ onChangeStage }) {
 
   const onClickBiz = ({ name, code }) => {
     dispatch({ type: 'SET_BIZ', bizCode: code, bizName: name });
-    onChangeStage('JOB');
+    onChangeStage({ cur: 'JOB' });
   };
 
   return (
@@ -40,6 +42,7 @@ function BizSelection({ onChangeStage }) {
           );
         })}
       </div>
+      {mode === searchMode.PLACE && <RecommendButton title={'추천받기'} />}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { Dropdown } from '@/components/Dropdown';
 import sigunguData from '../../../public/시군구.json';
 import dongData from '../../../public/행정동.json';
 import { useSearchDispatch, useSearchState } from './SearchContext';
+import NextButton from './NextButton';
 
 function PlaceSelection({ onChangeStage }) {
   const { dongName, sigunguCode, sigunguName } = useSearchState();
@@ -28,7 +29,7 @@ function PlaceSelection({ onChangeStage }) {
   };
 
   const onClickNext = () => {
-    onChangeStage('CDISTRICT');
+    onChangeStage({ cur: 'CDISTRICT' });
   };
 
   return (
@@ -67,7 +68,7 @@ function PlaceSelection({ onChangeStage }) {
           </Dropdown.OptionContainer>
         </Dropdown.Container>
       </Dropdown>
-      <button onClick={onClickNext}>Next</button>
+      <NextButton onClick={onClickNext} />
     </div>
   );
 }
