@@ -15,7 +15,7 @@ function RecommendationIndicatorTitle({ children }) {
 
 function RecommendationIndicatorContainer({ children, className }) {
   return (
-    <div className={classnames("flex flex-col items-center justify-evenly rounded-xl w-[200px] h-[100px] m-3 font-bold", className)}>
+    <div className={classnames('flex flex-col items-center justify-evenly rounded-xl w-[200px] h-[100px] m-3 font-bold', className)}>
       {children}
     </div>
   )
