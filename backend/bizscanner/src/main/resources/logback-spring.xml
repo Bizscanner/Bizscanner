@@ -29,7 +29,6 @@
     <!-- INFO LOG -->
     <!-- 롤링 패턴 적용(시간 또는 일 단위로 파일을 구분) -->
     <appender name="info-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${infoLogPath}/info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 로그 파일 보관 주기 설정, 보관 주기를 넘어가면 자동으로 삭제-->
             <maxHistory>7</maxHistory>
@@ -58,7 +57,6 @@
 
     <!-- WARN LOG -->
     <appender name="warn-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${warnLogPath}/warn.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <maxHistory>7</maxHistory>
             <maxFileSize>1GB</maxFileSize>
@@ -77,7 +75,6 @@
 
     <!-- ERROR LOG -->
     <appender name="error-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${errorLogPath}/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <maxHistory>7</maxHistory>
             <maxFileSize>1GB</maxFileSize>
