@@ -29,3 +29,6 @@ management:
 server:
   servlet:
     context-path: /api/v1
+  tomcat:
+    mbeanregistry:
+      enabled: true
