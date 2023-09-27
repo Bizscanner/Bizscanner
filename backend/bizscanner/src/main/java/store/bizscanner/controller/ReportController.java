@@ -1,6 +1,7 @@
 package store.bizscanner.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import store.bizscanner.service.*;
 @CrossOrigin("*")
 @RequestMapping("/report")
 @RequiredArgsConstructor
+@Slf4j
 public class ReportController {
     private final PopulationService populationService;
     private final SalesService salesService;
@@ -32,6 +34,8 @@ public class ReportController {
 
     @GetMapping("/best-population/{careaCode}")
     public ResponseEntity<BestPopulationResponse> bestPopulation(@PathVariable String careaCode) {
+        log.warn("================WARN================");
+        log.error("================ERROR================");
         return new ResponseEntity<>(populationService.bestPopulation(careaCode), HttpStatus.OK);
     }
 
