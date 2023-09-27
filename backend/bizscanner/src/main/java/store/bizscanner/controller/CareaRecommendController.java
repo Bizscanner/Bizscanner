@@ -15,7 +15,6 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class CareaRecommendController {
     private final CareaRecommendService careaRecommendService;
 

@@ -36,6 +36,10 @@ dependencies {
     testImplementation 'org.mockito:mockito-junit-jupiter:3.11.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     implementation 'io.micrometer:micrometer-registry-prometheus'
+    implementation 'com.auth0:java-jwt:4.2.1'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
     //cache
     implementation 'org.springframework.boot:spring-boot-starter-cache:2.3.3.RELEASE'

@@ -13,7 +13,11 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error"),
     RECOMMEND_JCATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "추천할 업종이 없습니다"),
     RECOMMEND_CAREA_NOT_FOUND(HttpStatus.NOT_FOUND, "추천할 상권이 없습니다"),
-    SCRAP_NOT_FOUND(HttpStatus.NOT_FOUND, "Scrap Resource not exists");
+    SCRAP_NOT_FOUND(HttpStatus.NOT_FOUND, "Scrap Resource not exists"),
+    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "member not found"),
+    REFRESHTOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "refresh token not found"),
+    EMAIL_ALREADY_EXISTS(HttpStatus.NOT_FOUND, "email already exists"),
+    NICKNAME_ALREADY_EXISTS(HttpStatus.NOT_FOUND, "nickname already exists");
 
     private final HttpStatus httpStatus;
     private final String message;

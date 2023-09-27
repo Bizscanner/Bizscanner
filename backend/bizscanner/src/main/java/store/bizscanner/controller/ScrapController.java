@@ -13,7 +13,6 @@ import store.bizscanner.service.ScrapService;
 import javax.validation.Valid;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/scrap")
 @RequiredArgsConstructor
 public class ScrapController {

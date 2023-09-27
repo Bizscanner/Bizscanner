@@ -10,7 +10,6 @@ import store.bizscanner.service.CareaService;
 import store.bizscanner.service.JcategoryRecommendConstantService;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/jcategory-recommend")
 @RequiredArgsConstructor
 public class JcategoryRecommendController {

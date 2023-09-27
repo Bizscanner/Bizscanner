@@ -20,7 +20,6 @@ import store.bizscanner.dto.response.sales.BestSalesResponse;
 import store.bizscanner.service.*;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/report")
 @RequiredArgsConstructor
 @Slf4j
