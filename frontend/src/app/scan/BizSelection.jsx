@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSearchDispatch } from './SearchContext';
 import RecommendButton from './RecommendButton';
 import { searchMode } from './constant';
+import JobRecommendation from './JobRecommendation';
 
 function BizSelection({ onChangeStage, mode }) {
+  const [showRecommend, setShowRecommend] = useState(false);
+
   const Jtype = [
     {
       name: '외식업',
@@ -26,6 +29,10 @@ function BizSelection({ onChangeStage, mode }) {
     onChangeStage({ cur: 'JOB' });
   };
 
+  const onClickRecommend = () => {
+    setShowRecommend(true);
+  };
+
   return (
     <div className="flex flex-col">
       <div className="py-4 text-2xl text-center">희망하는 업종을 선택해주세요.</div>
@@ -42,7 +49,14 @@ function BizSelection({ onChangeStage, mode }) {
           );
         })}
       </div>
-      {mode === searchMode.PLACE && <RecommendButton title={'추천받기'} />}
+      {mode === searchMode.PLACE && (
+        <RecommendButton
+          title={'추천받기'}
+          className="w-full p-4 mt-4"
+          onClick={onClickRecommend}
+        />
+      )}
+      <JobRecommendation isOpen={showRecommend} onClose={() => setShowRecommend(false)} />
     </div>
   );
 }

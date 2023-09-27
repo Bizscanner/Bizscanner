@@ -1,15 +1,15 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useSearchState } from './SearchContext';
+import { useSearchState, useSearchDispatch } from './SearchContext';
 import axios from '@/api/index';
 import ControllerTitle from './ControllerTitle';
-import RecommendButton from './RecommendButton';
 import { searchMode } from './constant';
 
 function CDistrictSelection({ onChangeStage, mode }) {
   const [cDistricts, setCDistricts] = useState([]);
 
   const { dongCode } = useSearchState();
+  const dispatch = useSearchDispatch();
 
   const fetchData = async () => {
     const {
@@ -18,7 +18,12 @@ function CDistrictSelection({ onChangeStage, mode }) {
     setCDistricts(dongInfoResponseList);
   };
 
-  const onClickCDistrict = () => {
+  const onClickCDistrict = ({ careaCode, careaName }) => {
+    dispatch({
+      type: 'SET_CAREA',
+      careaCode,
+      careaName
+    });
     if (mode === searchMode.PLACE) {
       onChangeStage({ cur: 'BIZ' });
       return;
@@ -41,7 +46,7 @@ function CDistrictSelection({ onChangeStage, mode }) {
                   <button
                     key={careaCode}
                     className="text-ellipsis overflow-hidden whitespace-nowrap w-[130px] h-[50px] rounded-small border-disabled text-disabled border-2 hover:border-primary hover:text-white hover:bg-primary"
-                    onClick={() => onClickCDistrict()}
+                    onClick={() => onClickCDistrict({ careaCode, careaName })}
                   >
                     {careaName}
                   </button>
@@ -53,7 +58,6 @@ function CDistrictSelection({ onChangeStage, mode }) {
       ) : (
         <div className="mt-8 mb-8 text-2xl font-bold text-center">상권이 존재하지 않아요!</div>
       )}
-      {mode === searchMode.BIZ && <RecommendButton title={'추천받기'} />}
     </div>
   );
 }

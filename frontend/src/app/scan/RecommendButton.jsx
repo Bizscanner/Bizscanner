@@ -1,9 +1,10 @@
 import Button from '@/components/Button';
 import React from 'react';
+import classnames from 'classnames';
 
-function RecommendButton({ title, onClick }) {
+function RecommendButton({ title, onClick, className }) {
   return (
-    <Button className="w-full p-4 mt-4 text-white rounded-small bg-primary" onClick={onClick}>
+    <Button className={classnames("text-white rounded-small bg-primary", className)} onClick={onClick}>
       {title}
     </Button>
   );

@@ -11,7 +11,7 @@ function ModalMain({ children, isOpen }) {
 
 function ModalDimmed({ children, onClick }) {
   return (
-    <div className="fixed left-0 top-0 w-full h-[100vh] bg-dim" onClick={onClick}>
+    <div className="fixed left-0 top-0 w-full h-[100vh] bg-dim z-50" onClick={onClick}>
       {children}
     </div>
   );
@@ -21,7 +21,7 @@ function ModalContainer({ children, className, width, height }) {
   return (
     <div
       className={classnames(
-        `p-10 fixed top-1/2 left-1/2 w-1/2 translate-x-[-50%] translate-y-[-50%] rounded-large`,
+        `p-10 fixed top-1/2 left-1/2 w-1/2 translate-x-[-50%] translate-y-[-50%] rounded-large z-50`,
         className,
       )}
       style={{
