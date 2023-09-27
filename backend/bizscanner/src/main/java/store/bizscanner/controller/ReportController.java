@@ -33,10 +33,9 @@ public class ReportController {
     private final EarningExpenditureService earningExpenditureService;
 
     @GetMapping("/best-population/{careaCode}")
-    public ResponseEntity<BestPopulationResponse> bestPopulation(@PathVariable String careaCode) {
-        log.warn("================WARN================");
-        log.error("================ERROR================");
-        return new ResponseEntity<>(populationService.bestPopulation(careaCode), HttpStatus.OK);
+    public ResponseEntity<BestPopulationResponse> bestPopulation(@PathVariable String careaCode) throws ArithmeticException{
+        throw new ArithmeticException();
+//        return new ResponseEntity<>(populationService.bestPopulation(careaCode), HttpStatus.OK);
     }
 
     @GetMapping("/best-jcategory/{careaCode}")

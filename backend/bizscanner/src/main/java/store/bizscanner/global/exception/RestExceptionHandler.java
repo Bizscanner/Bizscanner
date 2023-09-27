@@ -1,5 +1,6 @@
 package store.bizscanner.global.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +14,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.List;
 
 @RestControllerAdvice
+@Slf4j
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CustomException.class)
     protected ResponseEntity<ErrorResponse> handleRestException(CustomException ex) {
         ErrorCode errorCode = ex.getErrorCode();
+        log.warn(ex.getMessage(), ex);
         return new ResponseEntity<>(new ErrorResponse(errorCode.getHttpStatus(), errorCode.getMessage()),
                 errorCode.getHttpStatus());
     }
