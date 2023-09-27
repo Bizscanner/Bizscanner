@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import store.bizscanner.dto.request.CareaRecommendRequest;
 import store.bizscanner.dto.response.carearecommend.CareaRecommendResponse;
+import store.bizscanner.entity.Carea;
 import store.bizscanner.entity.CareaRecommendConstant;
 import store.bizscanner.entity.CareaRecommendNormalized;
 import store.bizscanner.global.exception.CustomException;
@@ -21,6 +22,7 @@ public class CareaRecommendService {
 
     private final CareaRecommendNormalizedRepository careaRecommendNormalizedRepository;
     private final CareaRecommendConstantRepository careaRecommendConstantRepository;
+    private final CareaService careaService;
     private static final Long AVERAGE_RENT_AMOUNT = 67774L;
 
 
@@ -72,7 +74,9 @@ public class CareaRecommendService {
         Long recommendedNetProfit = recommendCarea.getProfit(storeArea);
         //업종의 평균 매출액 변화율
         Double averageSalesAmountRateByJcategory = constant.getSalesAmountRate();
+        //상권 코드 바탕으로 상권 명 불러오기
+        Carea carea = careaService.findByCareaCode(recommendCarea.getCareaCode());
 
-        return new CareaRecommendResponse(averageNetProfitByJcategory, recommendedNetProfit, averageSalesAmountRateByJcategory, recommendCarea);
+        return new CareaRecommendResponse(carea.getCareaName(), averageNetProfitByJcategory, recommendedNetProfit, averageSalesAmountRateByJcategory, recommendCarea);
     }
 }
