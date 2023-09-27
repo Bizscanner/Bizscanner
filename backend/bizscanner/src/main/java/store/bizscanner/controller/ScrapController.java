@@ -35,11 +35,11 @@ public class ScrapController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/valid")
-    public ResponseEntity<ScrapValidResponse> isScrapped(@RequestParam String careaCode, @RequestParam String jcateogryCode) {
+    @GetMapping("/valid/{careaCode}/{jcategoryCode}")
+    public ResponseEntity<ScrapValidResponse> isScrapped(@PathVariable String careaCode, @PathVariable String jcategoryCode) {
         Member loginMember = new Member(); // 현재 로그인 한 유저
 
-        return new ResponseEntity<>(scrapService.isScrapped(careaCode, jcateogryCode, loginMember), HttpStatus.OK);
+        return new ResponseEntity<>(scrapService.isScrapped(careaCode, jcategoryCode, loginMember), HttpStatus.OK);
     }
 
     @GetMapping
