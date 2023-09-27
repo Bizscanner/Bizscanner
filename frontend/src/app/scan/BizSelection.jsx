@@ -56,7 +56,7 @@ function BizSelection({ onChangeStage, mode }) {
           onClick={onClickRecommend}
         />
       )}
-      <JobRecommendation isOpen={showRecommend} onClose={() => setShowRecommend(false)} />
+      {showRecommend && <JobRecommendation isOpen={showRecommend} onClose={() => setShowRecommend(false)} />}
     </div>
   );
 }

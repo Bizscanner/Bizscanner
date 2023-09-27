@@ -1,24 +1,45 @@
 import React from 'react';
+import classnames from 'classnames';
 
-function Input({ width, height, label, type, placeholder, value, onChange }) {
+function InputMain({ children, className }) {
   return (
-    <div className="w-full h-full bg-white rounded-medium" style={{ width, height }}>
-      <div className="relative flex justify-between	px-6">
-        <div className="w-full h-full flex flex-col pt-8 pb-2.5">
-          <label className="absolute top-1 left-6 text-disabled text-small font-semibold">
-            {label}
-          </label>
-          <input
-            className="w-full bg-transparent text-black text-xl font-bold placeholder-lightgray focus:outline-0"
-            type={type}
-            placeholder={placeholder}
-            onChange={onChange}
-            value={value}
-          />
-        </div>
-      </div>
+    <div className={classnames('w-full h-full bg-transparent', className)}>
+      <div className="flex flex-col px-5 py-1">{children}</div>
     </div>
   );
 }
 
-export default Input;
+function InputTitle({ children, className }) {
+  return <label className={classnames('text-sm text-black', className)}>{children}</label>;
+}
+
+function InputSection({ placeholder, type, value, children, wrapperStyle, inputStyle }) {
+  return (
+    <div className={classnames('flex flex-row mt-1 border-b-2 border-black', wrapperStyle)}>
+      <input
+        className={classnames(
+          'pb-1 mr-1 text-xl font-semibold text-black bg-transparent placeholder-lightgray focus:outline-0 focus:placeholder-transparent',
+          inputStyle,
+        )}
+        placeholder={placeholder}
+        type={type}
+        value={value}
+      />
+      {children}
+    </div>
+  );
+}
+
+function InputUnit({ children, className }) {
+  return (
+    <div className={classnames('pb-1 text-xl font-semibold text-black bg-transparent', className)}>
+      {children}
+    </div>
+  );
+}
+
+export const Input = Object.assign(InputMain, {
+  Title: InputTitle,
+  Section: InputSection,
+  Unit: InputUnit,
+});
