@@ -9,9 +9,15 @@ import RecommendButton from './RecommendButton';
 import NextButton from './NextButton';
 import { searchMode } from './constant';
 import CDistrictRecommendation from './CDistrictRecommendation';
+import InvestInput from './InvestInput';
 
 function PlaceSelection({ onChangeStage, mode }) {
   const [showRecommend, setShowRecommend] = useState(false);
+  const [showInput, setShowInput] = useState(false);
+  const [investmentData, setInvestmentData] = useState({
+    firstInvestmentAmount: 0,
+    storeArea: 0,
+  });
   const { dongName, sigunguCode, sigunguName } = useSearchState();
   const dispatch = useSearchDispatch();
 
@@ -37,8 +43,19 @@ function PlaceSelection({ onChangeStage, mode }) {
   };
 
   const onClickRecommend = () => {
-    setShowRecommend(true);
+    setShowInput(true);
   };
+
+  const updateInvestmentData = ( firstInvestmentAmount, storeArea ) => {
+    setInvestmentData({
+      firstInvestmentAmount,
+      storeArea,
+    });
+  };
+
+  const toggleCDistrictRecommendation = () => {
+    setShowRecommend(!showRecommend);
+  }
 
   return (
     <div>
@@ -84,10 +101,21 @@ function PlaceSelection({ onChangeStage, mode }) {
               className="w-1/2 h-full p-3 mx-1 mt-0"
               onClick={onClickRecommend}
             />
-            <CDistrictRecommendation
-              isOpen={showRecommend}
-              onClose={() => setShowRecommend(false)}
-            />
+            {showInput && (
+              <InvestInput
+                isOpen={showInput}
+                onClose={() => setShowInput(false)}
+                onUpdateInvestment={updateInvestmentData}
+                onShowCDistrictRecommendation={toggleCDistrictRecommendation}
+              />
+            )}
+            {showRecommend && (
+              <CDistrictRecommendation
+                isOpen={showRecommend}
+                onClose={() => setShowRecommend(false)}
+                investmentData={investmentData}
+              />
+            )}
             <NextButton onClick={onClickNext} className="w-1/2 h-full p-3 mx-1 mt-0" />
           </>
         ) : (

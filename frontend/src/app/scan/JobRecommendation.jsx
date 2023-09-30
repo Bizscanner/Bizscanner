@@ -7,9 +7,12 @@ import { Modal } from '@/components/Modal';
 import Button from '@/components/Button';
 import { RecommendationIndicator } from './RecommendationIndicator';
 import StoreIcon from '@/assets/icons/local_convenience_store.svg';
+import jcodedata from '../../../public/jcategorycode.json';
+
 
 function JobRecommendation({ isOpen, onClose }) {
   const [jobRecommendation, setJobRecommendation] = useState({
+    jcategoryName: '',
     jcategoryCode: '',
     averageNetProfitByJcategory: 0,
     averageSalesAmountRateByJcategory: '',
@@ -35,10 +38,11 @@ function JobRecommendation({ isOpen, onClose }) {
       },
     } = await axios.get(`/jcategory-recommend/${careaCode}`);
     setJobRecommendation({
+      jcategoryName: jcodedata[jcategoryCode].name,
       jcategoryCode,
-      averageNetProfitByJcategory,
+      averageNetProfitByJcategory: averageNetProfitByJcategory.toLocaleString('ko-KR'),
       averageSalesAmountRateByJcategory,
-      recommendedNetProfitByJcategory,
+      recommendedNetProfitByJcategory: recommendedNetProfitByJcategory.toLocaleString('ko-KR'),
       recommendedCareaSalesAmountRateByJcategory,
       closeRate,
     });
@@ -54,7 +58,7 @@ function JobRecommendation({ isOpen, onClose }) {
 
   return (
     <Modal isOpen={isOpen}>
-      <Modal.Dimmed onClick={onClickClose}>
+      <Modal.Dimmed>
         <Modal.Container className="bg-background" width="1000px" height="90vh">
           <Modal.Close onClick={onClickClose} />
           <div className="flex flex-col items-center">
@@ -62,7 +66,7 @@ function JobRecommendation({ isOpen, onClose }) {
             <div className="text-sm text-center text-red-600">{warning}</div>
             <div className="flex flex-row justify-center my-3">
               <StoreIcon className="mr-1 fill-primary" style={{ width: '30px', height: '30px' }} />
-              <p className="text-xl">{jobRecommendation.jcategoryCode}</p>
+              <p className="text-xl">{jobRecommendation.jcategoryName}</p>
             </div>
             <div className="flex flex-row justify-center w-[900px] h-[340px] bg-white mt-3 rounded-large">
               <RecommendationIndicator>
