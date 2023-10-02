@@ -4,9 +4,11 @@ import { useSearchState, useSearchDispatch } from './SearchContext';
 import axios from '@/api/index';
 import ControllerTitle from './ControllerTitle';
 import { searchMode } from './constant';
+import Report from './Report';
 
 function CDistrictSelection({ onChangeStage, mode }) {
   const [cDistricts, setCDistricts] = useState([]);
+  const [showReport, setShowReport] = useState(false);
 
   const { dongCode } = useSearchState();
   const dispatch = useSearchDispatch();
@@ -22,12 +24,14 @@ function CDistrictSelection({ onChangeStage, mode }) {
     dispatch({
       type: 'SET_CAREA',
       careaCode,
-      careaName
+      careaName,
     });
     if (mode === searchMode.PLACE) {
       onChangeStage({ cur: 'BIZ' });
       return;
     }
+
+    setShowReport(true);
   };
 
   useEffect(() => {
@@ -58,6 +62,7 @@ function CDistrictSelection({ onChangeStage, mode }) {
       ) : (
         <div className="mt-8 mb-8 text-2xl font-bold text-center">상권이 존재하지 않아요!</div>
       )}
+      {showReport && <Report onClose={() => setShowReport(false)} />}
     </div>
   );
 }

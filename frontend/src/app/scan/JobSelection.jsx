@@ -4,23 +4,28 @@ import { useSearchState, useSearchDispatch } from './SearchContext';
 import RecommendButton from './RecommendButton';
 import { searchMode } from './constant';
 import JobRecommendation from './JobRecommendation';
+import Report from './Report';
 
 function JobSelection({ onChangeStage, mode }) {
   const [showRecommend, setShowRecommend] = useState(false);
+  const [showReport, setShowReport] = useState(false);
   const { bizCode, bizName, jcategoryName } = useSearchState();
   const jList = jdata[bizCode];
   const dispatch = useSearchDispatch();
-  
+
   const onClickJob = (jcategoryCode, jcategoryName) => {
     dispatch({
       type: 'SET_JCATEGORY',
       jcategoryCode,
       jcategoryName,
     });
+
     if (mode === searchMode.BIZ) {
       onChangeStage({ cur: 'PLACE' });
       return;
     }
+
+    setShowReport(true);
   };
 
   const onClickRecommend = () => {
@@ -32,7 +37,7 @@ function JobSelection({ onChangeStage, mode }) {
       <div className="py-4 text-2xl text-center">{bizName} 내 세부 업종을 선택해주세요.</div>
       <div className="h-48 overflow-y-auto">
         <div className="grid grid-cols-3 gap-1 py-3 justify-items-center">
-          {jList.map(({code, name}, idx) => {
+          {jList.map(({ code, name }, idx) => {
             return (
               <button
                 key={idx}
@@ -52,7 +57,10 @@ function JobSelection({ onChangeStage, mode }) {
           onClick={onClickRecommend}
         />
       )}
-      {showRecommend && <JobRecommendation isOpen={showRecommend} onClose={() => setShowRecommend(false)} />}
+      {showReport && <Report onClose={() => setShowReport(false)} />}
+      {showRecommend && (
+        <JobRecommendation isOpen={showRecommend} onClose={() => setShowRecommend(false)} />
+      )}
     </div>
   );
 }

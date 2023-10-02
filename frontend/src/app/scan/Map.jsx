@@ -1,6 +1,6 @@
 'use client';
 import Script from 'next/script';
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 function Map({ commerialDistricts }) {
   const mapRef = useRef(null);
@@ -60,4 +60,4 @@ function Map({ commerialDistricts }) {
   );
 }
 
-export default Map;
+export default React.memo(Map);
