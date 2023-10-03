@@ -1,9 +1,14 @@
 'use client';
 import Script from 'next/script';
+import polyData from '../../../public/영역 통합.json';
+import centerData from '../../../public/영역 통합 중심 좌표.json';
+import { useSearchState } from './SearchContext';
 import React, { useEffect, useRef } from 'react';
 
-function Map({ commerialDistricts }) {
+function Map() {
   const mapRef = useRef(null);
+  const polyRef = useRef(null);
+  const { mapSelected } = useSearchState();
 
   const initializeMap = () => {
     const mapOptions = {
@@ -20,20 +25,37 @@ function Map({ commerialDistricts }) {
   };
 
   const draw = () => {
-    for (const d of commerialDistricts.features) {
-      const coordinates = d.geometry.coordinates;
-
-      const polygon = new naver.maps.Polygon({
-        map: mapRef.current,
-        paths: [coordinates[0].map(([lat, lng]) => new naver.maps.LatLng(lng, lat))],
-        fillColor: '#0064FF',
-        fillOpacity: 0.3,
-        strokeColor: '#0064FF',
-        strokeOpacity: 0.6,
-        strokeWeight: 3,
-      });
+    if (!mapSelected) {
+      return;
     }
+
+    if (polyRef.current) {
+      polyRef.current.setMap(null);
+      polyRef.current = null;
+    }
+
+    const coordinates = polyData[mapSelected];
+
+    const polygon = new naver.maps.Polygon({
+      map: mapRef.current,
+      paths: coordinates,
+      fillColor: '#0064FF',
+      fillOpacity: 0.3,
+      strokeColor: '#0064FF',
+      strokeOpacity: 0.6,
+      strokeWeight: 3,
+    });
+
+    if (centerData[mapSelected]) {
+      mapRef.current.panTo(centerData[mapSelected]);
+    }
+
+    polyRef.current = polygon;
   };
+
+  useEffect(() => {
+    draw();
+  }, [mapSelected]);
 
   useEffect(() => {
     return () => {

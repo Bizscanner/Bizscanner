@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import Selection from './SearchSelection';
 import PlaceSelection from './PlaceSelection';
-import { SearchProvider } from './SearchContext';
 import JobSelection from './JobSelection';
 import BizSelection from './BizSelection';
 import BackIcon from '@/assets/icons/undo.svg';
@@ -42,14 +41,14 @@ function Controller() {
   };
 
   return (
-      <div className="absolute z-10 p-5 bg-white left-4 rounded-medium top-1/2 translate-y-[-50%]">
-        {searchType.cur !== 'INIT' ? (
-          <button onClick={onClickPrev}>
-            <BackIcon width="48" height="48" />
-          </button>
-        ) : null}
-        <CurStage onChangeStage={onChangeStage} mode={searchType.mode} />
-      </div>
+    <div className="absolute z-10 p-5 bg-white left-4 rounded-medium top-1/2 translate-y-[-50%]">
+      {searchType.cur !== 'INIT' ? (
+        <button onClick={onClickPrev}>
+          <BackIcon width="48" height="48" />
+        </button>
+      ) : null}
+      <CurStage onChangeStage={onChangeStage} mode={searchType.mode} />
+    </div>
   );
 }
 

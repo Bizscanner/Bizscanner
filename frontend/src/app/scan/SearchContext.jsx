@@ -16,6 +16,7 @@ const initialState = {
   bizName: '',
   jcategoryCode: '',
   jcategoryName: '',
+  mapSelected: '',
 };
 
 function reducer(state, action) {
@@ -27,6 +28,7 @@ function reducer(state, action) {
         sigunguName: action.sigunguName,
         dongCode: action.sigunguName,
         dongName: action.dongName,
+        mapSelected: action.sigunguCode,
       };
 
     case 'SET_DONG':
@@ -34,13 +36,15 @@ function reducer(state, action) {
         ...state,
         dongCode: action.dongCode,
         dongName: action.dongName,
+        mapSelected: action.dongCode,
       };
-    
+
     case 'SET_CAREA':
       return {
         ...state,
         careaCode: action.careaCode,
         careaName: action.careaName,
+        mapSelected: action.careaCode,
       };
 
     case 'SET_BIZ':
@@ -51,10 +55,10 @@ function reducer(state, action) {
       };
 
     case 'SET_JCATEGORY':
-    return {
-      ...state,
-      jcategoryCode: action.jcategoryCode,
-      jcategoryName: action.jcategoryName,
+      return {
+        ...state,
+        jcategoryCode: action.jcategoryCode,
+        jcategoryName: action.jcategoryName,
       };
 
     default:
