@@ -45,7 +45,7 @@ function ModalClose({ onClick }) {
 }
 
 function ModalTitle({ children }) {
-  return <div className="text-3xl font-bold text-center">{children}</div>;
+  return <div className="text-3xl font-bold text-center mb-7">{children}</div>;
 }
 
 function ModalButtonContainer({ children }) {
