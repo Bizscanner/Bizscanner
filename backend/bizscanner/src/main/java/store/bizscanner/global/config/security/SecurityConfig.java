@@ -65,7 +65,7 @@ public class SecurityConfig {
                 //== URL별 권한 관리 옵션 ==//
                 .authorizeRequests()
 
-                .antMatchers("/**").permitAll() // 임시 전체 허용
+                .antMatchers("/**").permitAll() // 임시 전체 허용.
                 .antMatchers("/login", "/member/**", "ouath2/**", "/sign-up", "/report/**", "/carea-recommend", "/jcategory-recommend/**").permitAll() // 회원가입 접근 가능
                 .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
                 .and()
