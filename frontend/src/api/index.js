@@ -10,7 +10,15 @@ const instance = axios.create({
 });
 
 // Request 🧑
-instance.interceptors.request.use();
+instance.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem('at');
+
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+
+  return config;
+});
 
 // Response 🧑
 instance.interceptors.response.use();

@@ -1,9 +1,12 @@
 'use client';
 import React, { useState } from 'react';
 import ProfileMenu from './ProfileMenu';
+import { convertNickName } from '@/utils/nickname';
+import { useSelector } from 'react-redux';
 
 function Profile() {
   const [showMenu, setMenu] = useState(false);
+  const { nickname } = useSelector((state) => state.user);
 
   const onClick = () => {
     setMenu((prev) => !prev);
@@ -24,7 +27,7 @@ function Profile() {
             bottom: '0.2em',
           }}
         >
-          gs
+          {convertNickName(nickname)}
         </span>
       </button>
       {showMenu && <ProfileMenu />}
