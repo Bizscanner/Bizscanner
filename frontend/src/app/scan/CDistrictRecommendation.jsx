@@ -87,7 +87,7 @@ function CDistrictRecommendation({ isOpen, onClose, investmentData }) {
   return (
     <Modal isOpen={isOpen}>
       <Modal.Dimmed>
-        <Modal.Container className="bg-background" width="1000px" height="70vh">
+        <Modal.Container className="bg-background" width="1000px" height="90vh">
           <Modal.Close onClick={onClickClose} />
           <div className="flex flex-col items-center">
             <Modal.Title>추천 상권</Modal.Title>

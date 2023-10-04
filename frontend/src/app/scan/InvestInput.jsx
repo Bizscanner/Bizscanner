@@ -27,11 +27,13 @@ function InvestInput({ isOpen, onClose, onUpdateInvestment, onShowCDistrictRecom
       onUpdateInvestment(firstInvestmentAmountValue, storeAreaValue);
       onShowCDistrictRecommendation();
       onClose();
+    } else if ((firstInvestmentAmountValue === 0 && storeAreaValue === 0) || storeAreaValue === 0 || firstInvestmentAmountValue === 0) {
+      alert('값을 입력해 주세요.')
     } else if (firstInvestmentAmountValue < 30000000) {
       alert('초기 투자금은 3천만원부터 입력 가능합니다.')
     } else if ( storeAreaValue < 1 ) {
       alert('업장 희망 면적은 1부터 입력 가능합니다.')
-    }
+    } 
   };
 
   const handleChange = (e) => {
@@ -49,7 +51,7 @@ function InvestInput({ isOpen, onClose, onUpdateInvestment, onShowCDistrictRecom
   return (
     <Modal isOpen={isOpen}>
       <Modal.Dimmed>
-        <Modal.Container className="bg-background" width="1000px" height="60vh">
+        <Modal.Container className="bg-background" width="1000px" height="85vh">
           <Modal.Close onClick={onClickClose} />
           <div className="flex flex-col items-center">
             <Modal.Title>초기 투자 입력</Modal.Title>
