@@ -11,7 +11,7 @@ function LoginModal({ isOpen, onClose }) {
       <Modal.Dimmed onClick={onClose}>
         <Modal.Container className="w-1/4 bg-background">
           <Modal.Close onClick={onClose} />
-          <Modal.Title>로그인</Modal.Title>
+          <Modal.Title className="mb-7">로그인</Modal.Title>
           <Button className="flex items-center justify-center w-full gap-1 p-2 mb-2 bg-kakao">
             <KakaoIcon width="36" />
             카카오톡으로 시작하기

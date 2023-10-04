@@ -89,11 +89,11 @@ function CDistrictRecommendation({ isOpen, onClose, investmentData }) {
       <Modal.Dimmed>
         <Modal.Container className="bg-background" width="1000px" height="90vh">
           <Modal.Close onClick={onClickClose} />
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center h-full">
             <Modal.Title>추천 상권</Modal.Title>
             <div className="text-sm text-center text-red-600">{warning}</div>
             {noRecommend ? (
-              <div className="flex flex-row justify-center items-center w-[900px] h-[500px] bg-white mt-3 rounded-large">
+              <div className="flex flex-row items-center justify-center w-full mt-3 bg-white h-4/5 rounded-large">
                 <div className="text-5xl text-black">추천 결과가 존재하지 않습니다.</div>
               </div>
             ) : (
@@ -105,7 +105,7 @@ function CDistrictRecommendation({ isOpen, onClose, investmentData }) {
                   />
                   <p className="text-xl">{cDistrictRecommendation.careaName}</p>
                 </div>
-                <div className="flex flex-row justify-center w-[900px] h-[340px] bg-white mt-3 rounded-large">
+                <div className="flex flex-row justify-center w-full mt-3 bg-white h-3/5 rounded-large">
                   <RecommendationIndicator>
                     <RecommendationIndicator.Title>추정 순이익</RecommendationIndicator.Title>
                     <RecommendationIndicator.Container className="text-white bg-primary">

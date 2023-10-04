@@ -61,14 +61,14 @@ function JobRecommendation({ isOpen, onClose }) {
       <Modal.Dimmed>
         <Modal.Container className="bg-background" width="1000px" height="90vh">
           <Modal.Close onClick={onClickClose} />
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center h-full">
             <Modal.Title>추천 업종</Modal.Title>
             <div className="text-sm text-center text-red-600">{warning}</div>
             <div className="flex flex-row justify-center my-3">
               <StoreIcon className="mr-1 fill-primary" style={{ width: '30px', height: '30px' }} />
               <p className="text-xl">{jobRecommendation.jcategoryName}</p>
             </div>
-            <div className="flex flex-row justify-center w-[900px] h-[340px] bg-white mt-3 rounded-large">
+            <div className="flex flex-row justify-center w-full mt-3 bg-white h-3/5 rounded-large">
               <RecommendationIndicator>
                 <RecommendationIndicator.Title>평균 매출액</RecommendationIndicator.Title>
                 <RecommendationIndicator.Container className="text-white bg-primary">
