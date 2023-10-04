@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import store.bizscanner.entity.Carea;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -14,14 +15,16 @@ public class DongInfoResponse implements Serializable {
     private String careaTypeCode;
     private String careaCode;
     private String careaName;
-    private Double latitude;
-    private Double longitude;
+    private Double centerLatitude;
+    private Double centerLongitude;
+    private List<double[]> polygonCoordinates;
 
-    public DongInfoResponse(Carea carea){
+    public DongInfoResponse(Carea carea, CodeAreaPolygonAndCenterResponse polygonAndCenter){
         this.careaTypeCode = carea.getCareaTypeCode();
         this.careaCode = carea.getCareaCode();
         this.careaName = carea.getCareaName();
-        this.latitude = carea.getLatitude();
-        this.longitude = carea.getLongitude();
+        this.centerLatitude = polygonAndCenter.getCenterLatitude();
+        this.centerLongitude = polygonAndCenter.getCenterLongitude();
+        this.polygonCoordinates = polygonAndCenter.getPolygonCoordinates();
     }
 }

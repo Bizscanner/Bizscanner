@@ -19,7 +19,8 @@ public enum ErrorCode {
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "member not found"),
     REFRESHTOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "refresh token not found"),
     EMAIL_ALREADY_EXISTS(HttpStatus.NOT_FOUND, "email already exists"),
-    NICKNAME_ALREADY_EXISTS(HttpStatus.NOT_FOUND, "nickname already exists");
+    NICKNAME_ALREADY_EXISTS(HttpStatus.NOT_FOUND, "nickname already exists"),
+    AREA_NOT_FOUND(HttpStatus.NOT_FOUND, "area polygon not exists");
 
     private final HttpStatus httpStatus;
     private final String message;
