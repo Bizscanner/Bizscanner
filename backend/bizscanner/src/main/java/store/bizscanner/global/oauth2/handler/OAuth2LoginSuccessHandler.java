@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponentsBuilder;
 import store.bizscanner.global.jwt.JwtService;
 import store.bizscanner.global.oauth2.CustomOAuth2User;
 import store.bizscanner.repository.MemberRepository;
@@ -15,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 @Slf4j
 @Component
@@ -39,7 +41,14 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
         jwtService.updateRefreshToken(oAuth2User.getEmail(), refreshToken);
 
-        response.sendRedirect("oauth2/sign-up"); // 프론트의 회원가입 추가 정보 입력 폼으로 리다이렉트
+        String uri = UriComponentsBuilder.fromUriString("https://bizscanner.store")
+                .queryParam("accessToken", accessToken)
+                .queryParam("refreshToken", refreshToken)
+                .queryParam("email", oAuth2User.getEmail())
+                .queryParam("nickname", URLEncoder.encode(oAuth2User.getNickname(), "UTF-8"))
+                .build().toUriString();
+
+        response.sendRedirect(uri); // 메인 페이지로 리다이렉트
 
 
     }
