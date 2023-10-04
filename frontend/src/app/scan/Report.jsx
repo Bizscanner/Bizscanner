@@ -15,6 +15,7 @@ import CloseIcon from '@/assets/icons/close.svg';
 import ReportConsumptionTrend from './ReportConsumptionTrend';
 import ReportCareaChange from './ReportCareaChange';
 import ReportRent from './ReportRent';
+import ReportComment from './ReportComment';
 
 function Report({ onClose }) {
   const [tabIdx, setTabIdx] = useState(0);
@@ -96,7 +97,9 @@ function Report({ onClose }) {
             <ReportCareaChange ref={careaChangeRef} />
             <ReportRent ref={rentRef} />
           </main>
-          <aside className="h-full w-[300px]"></aside>
+          <aside className="h-full w-[350px]">
+            <ReportComment />
+          </aside>
         </div>
       </div>
     </div>,
