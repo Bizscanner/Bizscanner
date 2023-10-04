@@ -21,6 +21,8 @@ import {
   getPrevQuaterDiff,
   getPrevQuaterDiffText,
 } from '@/utils/diff';
+import DataNotFound from './DataNotFound';
+import HighlightingText from '@/components/HighlightingText';
 
 const radioButtons = [
   { key: 'QUATER', text: '분기별' },
@@ -103,28 +105,38 @@ const ReportSales = forwardRef(function ReportSales({}, ref) {
 
   return (
     <ReportSection title="매출액" ref={ref}>
-      <SummaryText>{`해당 상권에서 매출은 전년 동분기 대비 ${getLastYearDiff(
-        salesInfo.quarterlySalesAmountResponses,
-      )}원 ${getLastYearDiffText(
-        salesInfo.quarterlySalesAmountResponses,
-      )} 하였으며, 전분기 대비 ${getPrevQuaterDiff(
-        salesInfo.quarterlySalesAmountResponses,
-      )}원 ${getPrevQuaterDiffText(
-        salesInfo.quarterlySalesAmountResponses,
-      )}하였습니다.`}</SummaryText>
-      <div className="flex justify-around gap-2">
-        {radioButtons.map(({ key, text }) => (
-          <RadioButton
-            text={text}
-            key={key}
-            onClick={() => onClickRadioButton(key)}
-            isClicked={key === graph}
-          />
-        ))}
-      </div>
-      <div className="flex items-center justify-center">
-        <div className="w-3/4">{GraphMapper[graph]}</div>
-      </div>
+      {salesInfo.ageSalesAmountResponses.length ? (
+        <>
+          <SummaryText>
+            해당 상권에서 매출은 전년 동분기 대비{' '}
+            <HighlightingText>
+              {getLastYearDiff(salesInfo.quarterlySalesAmountResponses)}원{' '}
+              {getLastYearDiffText(salesInfo.quarterlySalesAmountResponses)}
+            </HighlightingText>
+            하였으며, 전분기 대비{' '}
+            <HighlightingText>
+              {getPrevQuaterDiff(salesInfo.quarterlySalesAmountResponses)}원{' '}
+              {getPrevQuaterDiffText(salesInfo.quarterlySalesAmountResponses)}
+            </HighlightingText>
+            하였습니다.
+          </SummaryText>
+          <div className="flex justify-around gap-2">
+            {radioButtons.map(({ key, text }) => (
+              <RadioButton
+                text={text}
+                key={key}
+                onClick={() => onClickRadioButton(key)}
+                isClicked={key === graph}
+              />
+            ))}
+          </div>
+          <div className="flex items-center justify-center">
+            <div className="w-3/4">{GraphMapper[graph]}</div>
+          </div>
+        </>
+      ) : (
+        <DataNotFound />
+      )}
     </ReportSection>
   );
 });

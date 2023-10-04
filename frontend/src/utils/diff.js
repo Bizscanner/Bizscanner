@@ -1,5 +1,5 @@
 export const getLastYearDiff = (arr) => {
-  return Math.abs(arr[arr.length - 1] - arr[0]);
+  return Math.abs(arr[arr.length - 1] - arr[0]).toLocaleString('ko-kr');
 };
 
 export const getLastYearDiffText = (arr) => {
@@ -7,7 +7,7 @@ export const getLastYearDiffText = (arr) => {
 };
 
 export const getPrevQuaterDiff = (arr) => {
-  return Math.abs(arr[arr.length - 1] - arr[arr.length - 2]);
+  return Math.abs(arr[arr.length - 1] - arr[arr.length - 2]).toLocaleString('ko-kr');
 };
 
 export const getPrevQuaterDiffText = (arr) => {

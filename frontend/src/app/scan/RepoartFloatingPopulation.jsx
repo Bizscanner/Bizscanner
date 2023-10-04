@@ -22,6 +22,8 @@ import {
   getPrevQuaterDiffText,
 } from '@/utils/diff';
 import DoubleBarGraph from '@/components/Graph/DoubleBarGraph';
+import DataNotFound from './DataNotFound';
+import HighlightingText from '@/components/HighlightingText';
 
 const radioButtons = [
   { key: 'QUATER', text: '분기별' },
@@ -122,28 +124,39 @@ const ReportFloatingPopulation = forwardRef(function ReportFloatingPopulation({}
 
   return (
     <ReportSection title="유동인구" ref={ref}>
-      <SummaryText>{`해당 상권에서 유동인구는 전년 동분기 대비 ${getLastYearDiff(
-        floatPopulationInfo.quarterlyPopulation,
-      )}원 ${getLastYearDiffText(
-        floatPopulationInfo.quarterlyPopulation,
-      )} 하였으며, 전분기 대비 ${getPrevQuaterDiff(
-        floatPopulationInfo.quarterlyPopulation,
-      )}원 ${getPrevQuaterDiffText(
-        floatPopulationInfo.quarterlyPopulation,
-      )}하였습니다.`}</SummaryText>
-      <div className="flex justify-around gap-2">
-        {radioButtons.map(({ key, text }) => (
-          <RadioButton
-            text={text}
-            key={key}
-            onClick={() => onClickRadioButton(key)}
-            isClicked={key === graph}
-          />
-        ))}
-      </div>
-      <div className="flex items-center justify-center">
-        <div className="w-3/4">{GraphMapper[graph]}</div>
-      </div>
+      {floatPopulationInfo.quarterlyPopulation.length ? (
+        <>
+          <SummaryText>
+            해당 상권에서 유동인구는 전년 동분기 대비
+            <HighlightingText>
+              {' '}
+              {getLastYearDiff(floatPopulationInfo.quarterlyPopulation)}원{' '}
+              {getLastYearDiffText(floatPopulationInfo.quarterlyPopulation)}
+            </HighlightingText>{' '}
+            하였으며, 전분기 대비
+            <HighlightingText>
+              {getPrevQuaterDiff(floatPopulationInfo.quarterlyPopulation)}원{' '}
+              {getPrevQuaterDiffText(floatPopulationInfo.quarterlyPopulation)}
+            </HighlightingText>
+            하였습니다.
+          </SummaryText>
+          <div className="flex justify-around gap-2">
+            {radioButtons.map(({ key, text }) => (
+              <RadioButton
+                text={text}
+                key={key}
+                onClick={() => onClickRadioButton(key)}
+                isClicked={key === graph}
+              />
+            ))}
+          </div>
+          <div className="flex items-center justify-center">
+            <div className="w-3/4">{GraphMapper[graph]}</div>
+          </div>
+        </>
+      ) : (
+        <DataNotFound />
+      )}
     </ReportSection>
   );
 });

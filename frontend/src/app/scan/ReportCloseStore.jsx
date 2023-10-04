@@ -11,6 +11,8 @@ import {
 } from '@/utils/diff';
 import Bar from '@/components/Graph/BarGraph';
 import { quaterConfig } from '@/components/Graph/constants';
+import DataNotFound from './DataNotFound';
+import HighlightingText from '@/components/HighlightingText';
 
 const ReportCloseStore = forwardRef(function ReportCloseStore({}, ref) {
   const [closeStoreInfo, setCloseStoreInfo] = useState([]);
@@ -28,21 +30,33 @@ const ReportCloseStore = forwardRef(function ReportCloseStore({}, ref) {
 
   return (
     <ReportSection title="폐업 현황" ref={ref}>
-      <SummaryText>{`해당 상권에서 폐업한 점포수는 전년 동분기 대비 ${getLastYearDiff(
-        closeStoreInfo,
-      )}개 ${getLastYearDiffText(closeStoreInfo)} 하였으며, 전분기 대비 ${getPrevQuaterDiff(
-        closeStoreInfo,
-      )}개 ${getPrevQuaterDiffText(closeStoreInfo)}하였습니다.`}</SummaryText>
-      <div className="flex items-center justify-center">
-        <div className="w-3/4">
-          <Bar
-            graphData={closeStoreInfo}
-            title="폐업 현황"
-            config={quaterConfig}
-            dataLabel="점포수 (개)"
-          />
-        </div>
-      </div>
+      {closeStoreInfo.length ? (
+        <>
+          <SummaryText>
+            해당 상권에서 폐업한 점포수는 전년 동분기 대비{' '}
+            <HighlightingText>
+              {getLastYearDiff(closeStoreInfo)}개 {getLastYearDiffText(closeStoreInfo)}
+            </HighlightingText>{' '}
+            하였으며, 전분기 대비{' '}
+            <HighlightingText>
+              {getPrevQuaterDiff(closeStoreInfo)}개 {getPrevQuaterDiffText(closeStoreInfo)}
+            </HighlightingText>
+            하였습니다.
+          </SummaryText>
+          <div className="flex items-center justify-center">
+            <div className="w-3/4">
+              <Bar
+                graphData={closeStoreInfo}
+                title="폐업 현황"
+                config={quaterConfig}
+                dataLabel="점포수 (개)"
+              />
+            </div>
+          </div>
+        </>
+      ) : (
+        <DataNotFound />
+      )}
     </ReportSection>
   );
 });

@@ -6,16 +6,16 @@ import { Age, Day, Gender, Time } from './constant';
 
 function IndicatorSection({ title, children }) {
   return (
-    <div className="flex-grow">
+    <div className="flex flex-col justify-center flex-grow mb-20">
       <div className="mb-4 text-lg font-bold text-center">{title}</div>
-      <div className="grid grid-cols-2 grid-rows-3 gap-2">{children}</div>
+      <div className="flex gap-2">{children}</div>
     </div>
   );
 }
 
 function Indicator({ title, value }) {
   return (
-    <div className="inline p-4 font-bold text-center border-2 border-outline rounded-small">
+    <div className="flex flex-col items-center justify-center p-4 font-bold text-center border-2 grow border-outline rounded-small">
       <div className="text-primary">{title}</div>
       {value}
     </div>
@@ -52,7 +52,7 @@ const ReportSummary = forwardRef(function ReportSummary({}, ref) {
 
   return (
     <ReportSection title="간략분석" ref={ref}>
-      <div className="flex gap-3">
+      <div>
         <IndicatorSection title="BEST 업종">
           <Indicator title="점포수" value={bestJob?.bestStoreCountJcategory} />
           <Indicator title="개업 점포수" value={bestJob?.bestOpenStoreCountJcategory} />
