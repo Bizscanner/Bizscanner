@@ -6,6 +6,8 @@ import JobSelection from './JobSelection';
 import BizSelection from './BizSelection';
 import BackIcon from '@/assets/icons/undo.svg';
 import CDistrictSelection from './CDistrictSelection';
+import Button from '@/components/Button';
+import { useSearchDispatch } from './SearchContext';
 
 const Stage = {
   INIT: Selection,
@@ -16,6 +18,8 @@ const Stage = {
 };
 
 function Controller() {
+  const dispatch = useSearchDispatch();
+
   const [searchType, setSearchType] = useState({
     mode: '',
     cur: 'INIT',
@@ -40,12 +44,32 @@ function Controller() {
     }));
   };
 
+  const onClickStart = () => {
+    setSearchType(() => ({
+      mode: '',
+      cur: 'INIT',
+      history: [],
+    }));
+    dispatch({
+      type: 'RESET',
+    });
+  };
+
   return (
     <div className="absolute z-10 p-5 bg-white left-4 rounded-medium top-1/2 translate-y-[-50%]">
       {searchType.cur !== 'INIT' ? (
-        <button onClick={onClickPrev}>
-          <BackIcon width="48" height="48" />
-        </button>
+        <div className="flex flex-row justify-between">
+          <button onClick={onClickPrev}>
+            <BackIcon width="48" height="48" />
+          </button>
+          <Button
+            className="text-white bg-disabled rounded-medium hover:bg-primary"
+            width="30%"
+            onClick={onClickStart}
+          >
+            처음으로
+          </Button>
+        </div>
       ) : null}
       <CurStage onChangeStage={onChangeStage} mode={searchType.mode} />
     </div>

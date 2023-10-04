@@ -61,6 +61,9 @@ function reducer(state, action) {
         jcategoryName: action.jcategoryName,
       };
 
+    case 'RESET':
+      return initialState;
+
     default:
       return state;
   }
