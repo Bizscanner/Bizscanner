@@ -48,5 +48,8 @@ public class MemberService {
                 .setNickname(nickname);
     }
 
-
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+    }
 }

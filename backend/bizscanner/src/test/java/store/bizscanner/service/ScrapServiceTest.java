@@ -5,19 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import store.bizscanner.dto.request.ScrapRequest;
-import store.bizscanner.dto.response.scrap.ScrapResponse;
+import store.bizscanner.dto.response.scrap.ScrapResponses;
 import store.bizscanner.entity.Member;
 import store.bizscanner.entity.Scrap;
 import store.bizscanner.global.exception.CustomException;
 import store.bizscanner.repository.MemberRepository;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-public class ScrapServiceTest {
+class ScrapServiceTest {
     @Autowired
     private ScrapService scrapService;
 
@@ -35,10 +33,10 @@ public class ScrapServiceTest {
         ScrapRequest scrapRequest = new ScrapRequest(careaCode, jcategoryCode);
 
         // when
-        Scrap savedScrap = scrapService.createScrap(scrapRequest, member);
+        Scrap savedScrap = scrapService.createScrap(scrapRequest, member.getEmail());
 
         // then
-        assertThat(scrapService.findScrap(scrapRequest, member)).isEqualTo(savedScrap);
+        assertThat(scrapService.findScrap(scrapRequest, member.getEmail())).isEqualTo(savedScrap);
     }
 
     @Test
@@ -52,11 +50,11 @@ public class ScrapServiceTest {
         ScrapRequest scrapRequest = new ScrapRequest(careaCode, jcategoryCode);
 
         // when
-        Scrap savedScrap = scrapService.createScrap(scrapRequest, member);
-        scrapService.deleteScrap(scrapRequest, member);
+        Scrap savedScrap = scrapService.createScrap(scrapRequest, member.getEmail());
+        scrapService.deleteScrap(scrapRequest, member.getEmail());
 
         // then
-        assertThatThrownBy(() -> scrapService.findScrap(scrapRequest, member))
+        assertThatThrownBy(() -> scrapService.findScrap(scrapRequest, member.getEmail()))
                 .isInstanceOf(CustomException.class);
     }
 
@@ -71,10 +69,10 @@ public class ScrapServiceTest {
         ScrapRequest scrapRequest = new ScrapRequest(careaCode, jcategoryCode);
 
         // when
-        Scrap savedScrap = scrapService.createScrap(scrapRequest, member);
+        Scrap savedScrap = scrapService.createScrap(scrapRequest, member.getEmail());
 
         // then
-        assertThat(scrapService.isScrapped(careaCode, jcategoryCode, member)).isTrue();
+        assertThat(scrapService.isScrapped(careaCode, jcategoryCode, member.getEmail()).isScrapped()).isTrue();
     }
 
     @Test
@@ -92,14 +90,14 @@ public class ScrapServiceTest {
         ScrapRequest scrapRequest2 = new ScrapRequest(careaCode2, jcategoryCode2);
 
         // when
-        Scrap savedScrap = scrapService.createScrap(scrapRequest, member);
-        Scrap savedScrap2 = scrapService.createScrap(scrapRequest2, member);
+        Scrap savedScrap = scrapService.createScrap(scrapRequest, member.getEmail());
+        Scrap savedScrap2 = scrapService.createScrap(scrapRequest2, member.getEmail());
 
         // then
-        List<ScrapResponse> scrapResponses = scrapService.getScrapResponses(member);
+        ScrapResponses scrapResponses = scrapService.getScrapResponses(member.getEmail());
 
-        assertThat(scrapResponses.get(0).getCareaCode()).isEqualTo(savedScrap.getCareaCode());
-        assertThat(scrapResponses.get(1).getCareaCode()).isEqualTo(savedScrap2.getCareaCode());
-        assertThat(scrapResponses.size()).isEqualTo(2);
+        assertThat(scrapResponses.getScrapResponses().get(0).getCareaCode()).isEqualTo(savedScrap.getCareaCode());
+        assertThat(scrapResponses.getScrapResponses().get(1).getCareaCode()).isEqualTo(savedScrap2.getCareaCode());
+        assertThat(scrapResponses.getScrapResponses()).hasSize(2);
     }
 }
