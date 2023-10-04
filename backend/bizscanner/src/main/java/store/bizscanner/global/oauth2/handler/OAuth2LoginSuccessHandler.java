@@ -41,7 +41,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
         jwtService.updateRefreshToken(oAuth2User.getEmail(), refreshToken);
 
-        String uri = UriComponentsBuilder.fromUriString("https://bizscanner.store")
+        String uri = UriComponentsBuilder.fromUriString("https://bizscanner.store/redirect")
                 .queryParam("accessToken", accessToken)
                 .queryParam("refreshToken", refreshToken)
                 .queryParam("email", oAuth2User.getEmail())
