@@ -7,10 +7,12 @@ import Button from '../Button';
 function LoginModal({ isOpen, onClose }) {
   const onClickKakakoLogin = () => {
     const kakaoAuthUrl = `${process.env.NEXT_PUBLIC_API}/oauth2/authorization/kakao`;
+    window.location.href = kakaoAuthUrl;
   };
 
   const onClickGoogleLogin = () => {
     const googleAuthUrl = `${process.env.NEXT_PUBLIC_API}/oauth2/authorization/google`;
+    window.location.href = googleAuthUrl;
   };
 
   return (
