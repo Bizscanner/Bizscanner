@@ -25,7 +25,7 @@ function page() {
       }),
     );
 
-    redirect('/');
+    window.close();
   }, []);
   return <div>로그인 중.....</div>;
 }

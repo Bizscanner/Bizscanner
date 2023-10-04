@@ -7,12 +7,18 @@ import Button from '../Button';
 function LoginModal({ isOpen, onClose }) {
   const onClickKakakoLogin = () => {
     const kakaoAuthUrl = `${process.env.NEXT_PUBLIC_API}/oauth2/authorization/kakao`;
-    window.location.href = kakaoAuthUrl;
+    const win = window.open(kakaoAuthUrl, '', 'width:600px;height:500px');
+    win.onbeforeunload = function () {
+      location.reload();
+    };
   };
 
   const onClickGoogleLogin = () => {
     const googleAuthUrl = `${process.env.NEXT_PUBLIC_API}/oauth2/authorization/google`;
-    window.location.href = googleAuthUrl;
+    const win = window.open(googleAuthUrl, '', 'width:600px;height:500px');
+    win.onbeforeunload = function () {
+      location.reload();
+    };
   };
 
   return (
