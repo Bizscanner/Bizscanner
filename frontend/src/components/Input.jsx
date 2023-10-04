@@ -47,7 +47,7 @@ function InputUnit({ children, className }) {
 
 export const Input = Object.assign(InputMain, {
   Title: InputTitle,
-  Wraaper: InputWrapper,
+  Wrapper: InputWrapper,
   Section: InputSection,
   Unit: InputUnit,
 });
