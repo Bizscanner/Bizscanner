@@ -1,18 +1,17 @@
 'use client';
 import Script from 'next/script';
-import polyData from '../../../public/영역 통합.json';
-import centerData from '../../../public/영역 통합 중심 좌표.json';
 import { useSearchState } from './SearchContext';
 import React, { useEffect, useRef } from 'react';
 
 function Map() {
   const mapRef = useRef(null);
-  const polyRef = useRef(null);
-  const { mapSelected } = useSearchState();
+  const polyRef = useRef([]);
+  const { mapCenter, mapCoordinates, mapZoom } = useSearchState();
 
   const initializeMap = () => {
     const mapOptions = {
       center: new window.naver.maps.LatLng(37.5262411, 126.99289439),
+      zoom: 13,
       scaleControl: false,
       mapDataControl: false,
       logoControlOptions: {
@@ -25,37 +24,41 @@ function Map() {
   };
 
   const draw = () => {
-    if (!mapSelected) {
+    if (!mapCoordinates) {
       return;
     }
 
     if (polyRef.current) {
-      polyRef.current.setMap(null);
-      polyRef.current = null;
+      for (const p of polyRef.current) {
+        p.setMap(null);
+      }
     }
 
-    const coordinates = polyData[mapSelected];
+    polyRef.current = [];
 
-    const polygon = new naver.maps.Polygon({
-      map: mapRef.current,
-      paths: coordinates,
-      fillColor: '#0064FF',
-      fillOpacity: 0.3,
-      strokeColor: '#0064FF',
-      strokeOpacity: 0.6,
-      strokeWeight: 3,
-    });
+    for (const coordinate of mapCoordinates) {
+      const polygon = new naver.maps.Polygon({
+        map: mapRef.current,
+        paths: coordinate,
+        fillColor: '#0064FF',
+        fillOpacity: 0.3,
+        strokeColor: '#0064FF',
+        strokeOpacity: 0.6,
+        strokeWeight: 3,
+      });
 
-    if (centerData[mapSelected]) {
-      mapRef.current.panTo(centerData[mapSelected]);
+      polyRef.current.push(polygon);
     }
+    mapRef.current.setZoom(mapZoom, true);
 
-    polyRef.current = polygon;
+    if (mapCenter) {
+      mapRef.current.panTo(mapCenter);
+    }
   };
 
   useEffect(() => {
     draw();
-  }, [mapSelected]);
+  }, [mapCenter, mapCoordinates, mapZoom]);
 
   useEffect(() => {
     return () => {

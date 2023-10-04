@@ -17,15 +17,28 @@ function CDistrictSelection({ onChangeStage, mode }) {
     const {
       data: { dongInfoResponseList },
     } = await axios.get(`/jcategory-recommend/dong/${dongCode}`);
+
     setCDistricts(dongInfoResponseList);
+
+    dispatch({
+      type: 'SET_MAP',
+      mapCoordinates: dongInfoResponseList.map(({ polygonCoordinates }) => polygonCoordinates),
+      mapZoom: 17,
+    });
   };
 
-  const onClickCDistrict = ({ careaCode, careaName }) => {
+  const onClickCDistrict = async ({ careaCode, careaName }) => {
+    const { data } = await axios.get(`/jcategory-recommend/area/${careaCode}`);
+
     dispatch({
       type: 'SET_CAREA',
       careaCode,
       careaName,
+      mapCoordinates: [data.polygonCoordinates],
+      mapCenter: [data.centerLongitude, data.centerLatitude],
+      mapZoom: 19,
     });
+
     if (mode === searchMode.PLACE) {
       onChangeStage({ cur: 'BIZ' });
       return;
