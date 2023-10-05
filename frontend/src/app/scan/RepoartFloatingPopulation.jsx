@@ -130,12 +130,12 @@ const ReportFloatingPopulation = forwardRef(function ReportFloatingPopulation({}
             해당 상권에서 유동인구는 전년 동분기 대비
             <HighlightingText>
               {' '}
-              {getLastYearDiff(floatPopulationInfo.quarterlyPopulation)}원{' '}
+              {getLastYearDiff(floatPopulationInfo.quarterlyPopulation)}명{' '}
               {getLastYearDiffText(floatPopulationInfo.quarterlyPopulation)}
             </HighlightingText>{' '}
             하였으며, 전분기 대비
             <HighlightingText>
-              {getPrevQuaterDiff(floatPopulationInfo.quarterlyPopulation)}원{' '}
+              {getPrevQuaterDiff(floatPopulationInfo.quarterlyPopulation)}명{' '}
               {getPrevQuaterDiffText(floatPopulationInfo.quarterlyPopulation)}
             </HighlightingText>
             하였습니다.

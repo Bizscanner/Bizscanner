@@ -23,7 +23,7 @@ function CDistrictSelection({ onChangeStage, mode }) {
     dispatch({
       type: 'SET_MAP',
       mapCoordinates: dongInfoResponseList.map(({ polygonCoordinates }) => polygonCoordinates),
-      mapZoom: 17,
+      mapZoom: 15,
     });
   };
 
@@ -36,7 +36,7 @@ function CDistrictSelection({ onChangeStage, mode }) {
       careaName,
       mapCoordinates: [data.polygonCoordinates],
       mapCenter: [data.centerLongitude, data.centerLatitude],
-      mapZoom: 19,
+      mapZoom: 15,
     });
 
     if (mode === searchMode.PLACE) {

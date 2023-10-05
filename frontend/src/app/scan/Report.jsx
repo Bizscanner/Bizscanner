@@ -69,7 +69,7 @@ function Report({ onClose }) {
   };
 
   return createPortal(
-    <div className="absolute top-0 left-0 z-30 flex w-[100vw] h-[100vh] bg-background">
+    <div className="absolute top-0 left-0 z-50 flex w-[100vw] h-[100vh] bg-background">
       <Tab onClickTab={onClickTab} tab={tabIdx} />
       <div className="flex flex-col flex-grow p-8">
         <div className="flex items-center justify-between mb-8 text-4xl font-bold">

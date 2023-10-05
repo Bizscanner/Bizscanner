@@ -32,8 +32,8 @@ function PlaceSelection({ onChangeStage, mode }) {
       type: 'SET_SIGUNGU',
       sigunguCode: code,
       sigunguName: name,
-      dongCode: dong[code][0].code,
-      dongName: dong[code][0].name,
+      dongCode: 0,
+      dongName: '',
       mapCoordinates: [data.polygonCoordinates],
       mapCenter: [data.centerLongitude, data.centerLatitude],
       mapZoom: 13,
@@ -54,6 +54,11 @@ function PlaceSelection({ onChangeStage, mode }) {
   };
 
   const onClickNext = () => {
+    if (!dongName) {
+      alert('동을 선택해주세요!');
+      return;
+    }
+
     onChangeStage({ cur: 'CDISTRICT' });
   };
 
@@ -112,7 +117,7 @@ function PlaceSelection({ onChangeStage, mode }) {
       <Dropdown>
         <Dropdown.Container className="w-72 mb-28">
           <Dropdown.Label>행정동</Dropdown.Label>
-          <Dropdown.Trigger>{dongName}</Dropdown.Trigger>
+          <Dropdown.Trigger>{dongName || '동을 선택해주세요'}</Dropdown.Trigger>
           <Dropdown.OptionContainer>
             {dong[sigunguCode].map(({ code, name }) => (
               <Dropdown.Option id={code} code={code} name={name} onSelect={onSelectDong} key={code}>

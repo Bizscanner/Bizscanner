@@ -6,8 +6,8 @@ const SearchStateContext = createContext(null);
 const SearchDispatchContext = createContext(null);
 
 const initialState = {
-  dongCode: 11110515,
-  dongName: '청운효자동',
+  dongCode: 0,
+  dongName: '',
   sigunguCode: 11110,
   sigunguName: '종로구',
   careaCode: '',
@@ -28,7 +28,7 @@ function reducer(state, action) {
         ...state,
         sigunguCode: action.sigunguCode,
         sigunguName: action.sigunguName,
-        dongCode: action.sigunguName,
+        dongCode: action.dongCode,
         dongName: action.dongName,
         mapSelected: action.sigunguCode,
         mapCenter: action.mapCenter,
@@ -54,8 +54,8 @@ function reducer(state, action) {
         careaName: action.careaName,
         mapSelected: action.careaCode,
         mapCenter: action.mapCenter,
-        mapCoordinates: action.mapCoordinates,
-        mapZoom: action.mapZoom,
+        mapCoordinates: action.mapCoordinates ?? state.mapCoordinates,
+        mapZoom: action.mapZoom ?? state.mapZoom,
       };
 
     case 'SET_MAP':
