@@ -14,9 +14,8 @@ import { quaterConfig } from '@/components/Graph/constants';
 import DataNotFound from './DataNotFound';
 import HighlightingText from '@/components/HighlightingText';
 
-const ReportCloseStore = forwardRef(function ReportCloseStore({}, ref) {
+const ReportCloseStore = forwardRef(function ReportCloseStore({ careaCode, jcategoryCode }, ref) {
   const [closeStoreInfo, setCloseStoreInfo] = useState([]);
-  const { careaCode, jcategoryCode } = useSearchState();
 
   const fetchCloseStoreInfo = async () => {
     const {

@@ -11,5 +11,5 @@ export const getPrevQuaterDiff = (arr) => {
 };
 
 export const getPrevQuaterDiffText = (arr) => {
-  return Math.abs(arr[arr.length - 1] - arr[arr.length - 2]) >= 0 ? '상승' : '하락';
+  return arr[arr.length - 1] - arr[arr.length - 2] >= 0 ? '상승' : '하락';
 };

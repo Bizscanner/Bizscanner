@@ -7,9 +7,8 @@ import { CareaChangeDesc } from './constant';
 import DataNotFound from './DataNotFound';
 import HighlightingText from '@/components/HighlightingText';
 
-const ReportCareaChange = forwardRef(function ReportCareaChange({}, ref) {
+const ReportCareaChange = forwardRef(function ReportCareaChange({ careaCode }, ref) {
   const [careaChange, setCareaChange] = useState({ careaChange: '', careaChangeName: '' });
-  const { careaCode } = useSearchState();
 
   const fetchCareaChange = async () => {
     const { data } = await axios.get(`/report/cchange/${careaCode}`);

@@ -3,10 +3,7 @@ import axios from '@/api/index';
 import { Modal } from '@/components/Modal';
 import Button from '@/components/Button';
 
-function DeleteCheck({ isOpen, onClose, reportData, fetchData }) {
-  const careaCode = reportData.careaCode;
-  const jcategoryCode = reportData.jcategoryCode;
-
+function DeleteCheck({ isOpen, onClose, careaCode, jcategoryCode, fetchData }) {
   const onClickClose = () => {
     onClose();
   };

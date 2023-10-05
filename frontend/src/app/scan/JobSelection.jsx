@@ -9,7 +9,7 @@ import Report from './Report';
 function JobSelection({ onChangeStage, mode }) {
   const [showRecommend, setShowRecommend] = useState(false);
   const [showReport, setShowReport] = useState(false);
-  const { bizCode, bizName, jcategoryName } = useSearchState();
+  const { jcategoryName, jcategoryCode, careaName, careaCode, bizCode, bizName } = useSearchState();
   const jList = jdata[bizCode];
   const dispatch = useSearchDispatch();
 
@@ -57,7 +57,15 @@ function JobSelection({ onChangeStage, mode }) {
           onClick={onClickRecommend}
         />
       )}
-      {showReport && <Report onClose={() => setShowReport(false)} />}
+      {showReport && (
+        <Report
+          jcategoryName={jcategoryName}
+          jcategoryCode={jcategoryCode}
+          careaName={careaName}
+          careaCode={careaCode}
+          onClose={() => setShowReport(false)}
+        />
+      )}
       {showRecommend && (
         <JobRecommendation isOpen={showRecommend} onClose={() => setShowRecommend(false)} />
       )}

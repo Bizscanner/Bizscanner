@@ -34,7 +34,7 @@ const radioButtons = [
 
 const dataLabel = '매출액 (원)';
 
-const ReportSales = forwardRef(function ReportSales({}, ref) {
+const ReportSales = forwardRef(function ReportSales({ careaCode, jcategoryCode }, ref) {
   const [salesInfo, setSalesInfo] = useState({
     quarterlySalesAmountResponses: [],
     daySalesAmountResponses: [],
@@ -87,8 +87,6 @@ const ReportSales = forwardRef(function ReportSales({}, ref) {
       />
     ),
   };
-
-  const { careaCode, jcategoryCode } = useSearchState();
 
   const fetchSalesInfo = async () => {
     const { data } = await axios.get(`/report/sales/amount/${careaCode}/${jcategoryCode}`);

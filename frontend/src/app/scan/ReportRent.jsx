@@ -4,7 +4,7 @@ import axios from '@/api/index';
 import { useSearchState } from './SearchContext';
 import DataNotFound from './DataNotFound';
 
-const ReportRent = forwardRef(function ReportRend({}, ref) {
+const ReportRent = forwardRef(function ReportRend({ careaCode }, ref) {
   const [rent, setRent] = useState({
     rentAmount: 0,
     rentIncreaseRate: 0,
@@ -13,7 +13,7 @@ const ReportRent = forwardRef(function ReportRend({}, ref) {
     maintenanceAmount: 0,
     firstInvestmentAmount: 0,
   });
-  const { careaCode } = useSearchState();
+  // const { careaCode } = useSearchState();
 
   const fetchRent = async () => {
     const { data } = await axios.get(`/report/rent/${careaCode}`);

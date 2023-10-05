@@ -8,9 +8,8 @@ import { expenditureConfig } from '@/components/Graph/constants';
 import DataNotFound from './DataNotFound';
 import HighlightingText from '@/components/HighlightingText';
 
-const ReportConsumptionTrend = forwardRef(function ReportConsumptionTrend({}, ref) {
+const ReportConsumptionTrend = forwardRef(function ReportConsumptionTrend({ careaCode }, ref) {
   const [consumptionTrend, setConsumptionTrend] = useState({});
-  const { careaCode } = useSearchState();
 
   const fetchConsumptionTrend = async () => {
     const { data } = await axios.get(`/report/expenditure/${careaCode}`);

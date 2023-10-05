@@ -10,7 +10,7 @@ function CDistrictSelection({ onChangeStage, mode }) {
   const [cDistricts, setCDistricts] = useState([]);
   const [showReport, setShowReport] = useState(false);
 
-  const { dongCode } = useSearchState();
+  const { jcategoryName, jcategoryCode, careaName, careaCode, dongCode } = useSearchState();
   const dispatch = useSearchDispatch();
 
   const fetchData = async () => {
@@ -75,7 +75,15 @@ function CDistrictSelection({ onChangeStage, mode }) {
       ) : (
         <div className="mt-8 mb-8 text-2xl font-bold text-center">상권이 존재하지 않아요!</div>
       )}
-      {showReport && <Report onClose={() => setShowReport(false)} />}
+      {showReport && (
+        <Report
+          jcategoryName={jcategoryName}
+          jcategoryCode={jcategoryCode}
+          careaName={careaName}
+          careaCode={careaCode}
+          onClose={() => setShowReport(false)}
+        />
+      )}
     </div>
   );
 }

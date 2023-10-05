@@ -14,9 +14,8 @@ import LineGraph from '@/components/Graph/LineGraph';
 import DataNotFound from './DataNotFound';
 import HighlightingText from '@/components/HighlightingText';
 
-const ReportSalesCount = forwardRef(function ReportSalesCount({}, ref) {
+const ReportSalesCount = forwardRef(function ReportSalesCount({ careaCode, jcategoryCode }, ref) {
   const [salesCountInfo, setSalesCountInfo] = useState([]);
-  const { careaCode, jcategoryCode } = useSearchState();
 
   const fetchSalesCountInfo = async () => {
     const {

@@ -14,9 +14,8 @@ import { quaterConfig } from '@/components/Graph/constants';
 import HighlightingText from '@/components/HighlightingText';
 import DataNotFound from './DataNotFound';
 
-const ReportOpenStore = forwardRef(function ReportOpenStore({}, ref) {
+const ReportOpenStore = forwardRef(function ReportOpenStore({ careaCode, jcategoryCode }, ref) {
   const [openStoreInfo, setOpenStoreInfo] = useState([]);
-  const { careaCode, jcategoryCode } = useSearchState();
 
   const fetchOpenStoreInfo = async () => {
     const {
@@ -24,8 +23,6 @@ const ReportOpenStore = forwardRef(function ReportOpenStore({}, ref) {
     } = await axios.get(`/report/stores/open-status/${careaCode}/${jcategoryCode}`);
     setOpenStoreInfo(quarterlyOpenStore);
   };
-
-  console.log(openStoreInfo);
 
   useEffect(() => {
     fetchOpenStoreInfo();

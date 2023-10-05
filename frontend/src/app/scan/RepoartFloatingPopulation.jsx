@@ -36,7 +36,7 @@ const radioButtons = [
 
 const dataLabel = '인구수 (명)';
 
-const ReportFloatingPopulation = forwardRef(function ReportFloatingPopulation({}, ref) {
+const ReportFloatingPopulation = forwardRef(function ReportFloatingPopulation({ careaCode }, ref) {
   const [floatPopulationInfo, setFloatPopulationInfo] = useState({
     quarterlyPopulation: [],
     dayPopulation: [],
@@ -102,8 +102,6 @@ const ReportFloatingPopulation = forwardRef(function ReportFloatingPopulation({}
       />
     ),
   };
-
-  const { careaCode } = useSearchState();
 
   const fetchSalesInfo = async () => {
     const { data } = await axios.get(`/report/population/${careaCode}`);

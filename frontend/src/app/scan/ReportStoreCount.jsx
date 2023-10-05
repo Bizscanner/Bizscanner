@@ -14,9 +14,8 @@ import { quaterConfig } from '@/components/Graph/constants';
 import HighlightingText from '@/components/HighlightingText';
 import DataNotFound from './DataNotFound';
 
-const ReportStoreCount = forwardRef(function ReportStoreCount({}, ref) {
+const ReportStoreCount = forwardRef(function ReportStoreCount({ careaCode, jcategoryCode }, ref) {
   const [storeCountInfo, setStoreCountInfo] = useState();
-  const { careaCode, jcategoryCode } = useSearchState();
 
   const fetchStoreCount = async () => {
     const { data } = await axios.get(`/report/stores/${careaCode}/${jcategoryCode}`);

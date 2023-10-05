@@ -36,7 +36,7 @@ function CDistrictRecommendation({ isOpen, onClose, investmentData }) {
     careaChange: '',
   });
 
-  const { jcategoryCode } = useSearchState();
+  const { jcategoryName, jcategoryCode, careaName, careaCode } = useSearchState();
   const dispatch = useSearchDispatch();
 
   const warning =
@@ -188,7 +188,15 @@ function CDistrictRecommendation({ isOpen, onClose, investmentData }) {
           </Modal.Container>
         </Modal.Dimmed>
       </Modal>
-      {showReport && <Report onClose={onCloseReport} />}
+      {showReport && (
+        <Report
+          jcategoryName={jcategoryName}
+          jcategoryCode={jcategoryCode}
+          careaName={careaName}
+          careaCode={careaCode}
+          onClose={onCloseReport}
+        />
+      )}
     </>
   );
 }

@@ -24,8 +24,10 @@ function CardUpperButton({ size, onClick }) {
 function CardContent({ carea, jcategory, reportDate }) {
   return (
     <>
-      <div className="my-1 text-2xl font-bold">{carea}</div>
-      <div className="text-2xl font-bold">{jcategory}</div>
+      <div className="my-1 overflow-hidden text-2xl font-bold whitespace-nowrap overflow-ellipsis">
+        {carea}
+      </div>
+      <div className="text-2xl font-bold ">{jcategory}</div>
       <div className="my-1 text-xl font-bold text-disabled">{reportDate}</div>
     </>
   );
@@ -34,7 +36,7 @@ function CardContent({ carea, jcategory, reportDate }) {
 function CardLowerButton({ children, onClick }) {
   return (
     <Button
-      className="w-full py-3 mt-1 text-xl text-white h-3/5 bg-primary rounded-medium"
+      className="w-full py-3 mt-1 text-xl text-white align-middle h-1/4 bg-primary rounded-medium"
       onClick={onClick}
     >
       {children}

@@ -22,12 +22,10 @@ function Indicator({ title, value }) {
   );
 }
 
-const ReportSummary = forwardRef(function ReportSummary({}, ref) {
+const ReportSummary = forwardRef(function ReportSummary({ careaCode }, ref) {
   const [bestJob, setBestJob] = useState();
   const [bestSales, setBestSales] = useState();
   const [bestFloatingPopulation, setBestFloatingPopulation] = useState();
-
-  const { careaCode } = useSearchState();
 
   const fetchBestJob = async () => {
     const { data } = await axios.get(`/report/best-jcategory/${careaCode}`);

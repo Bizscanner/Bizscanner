@@ -1,9 +1,10 @@
 import { logout } from '@/redux/userSlice';
 import { convertNickName } from '@/utils/nickname';
+import Link from 'next/link';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-function ProfileMenu({ onClickEditNickname }) {
+function ProfileMenu({ onClickEditNickname, onCloseMenu }) {
   const dispatch = useDispatch();
   const { nickname, email } = useSelector((state) => state.user);
 
@@ -13,6 +14,10 @@ function ProfileMenu({ onClickEditNickname }) {
 
   const onClickLogout = () => {
     dispatch(logout());
+  };
+
+  const onClickMyReport = () => {
+    onCloseMenu();
   };
 
   return (
@@ -43,7 +48,11 @@ function ProfileMenu({ onClickEditNickname }) {
         <button className="w-full p-2 hover:bg-outline" onClick={onClickEdit}>
           닉네임 변경
         </button>
-        <button className="w-full p-2 hover:bg-outline">마이 레포트</button>
+        <button className="w-full p-2 hover:bg-outline" onClick={onClickMyReport}>
+          <Link href="/myreport" className="block">
+            마이 리포트
+          </Link>
+        </button>
         <button className="w-full p-2 hover:bg-outline" onClick={onClickLogout}>
           로그아웃
         </button>

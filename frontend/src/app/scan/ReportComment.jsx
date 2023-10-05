@@ -64,9 +64,8 @@ const CommentInput = forwardRef(function CommentInput(
   );
 });
 
-function ReportComment() {
+function ReportComment({ careaCode, jcategoryCode }) {
   const [comments, setComments] = useState([]);
-  const { careaCode, jcategoryCode } = useSearchState();
   const { isLogin } = useSelector((state) => state.user);
   const commentsContainerRef = useRef(null);
 
