@@ -15,7 +15,6 @@ export const userSlice = createSlice({
     },
 
     logout: (state) => {
-      console.log('testsets');
       state.nickname = '';
       state.email = '';
       state.isLogin = false;
@@ -23,8 +22,12 @@ export const userSlice = createSlice({
       localStorage.removeItem('at');
       localStorage.removeItem('rt');
     },
+
+    updateNickname: (state, action) => {
+      state.nickname = action.payload.nickname;
+    },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, updateNickname } = userSlice.actions;
 export default userSlice.reducer;

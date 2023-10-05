@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import classnames from 'classnames';
 
 function InputMain({ children, className }) {
@@ -21,7 +21,10 @@ function InputWrapper({ children, className }) {
   );
 }
 
-function InputSection({ name, placeholder, type, value, onChange, className }) {
+const InputSection = forwardRef(function InputSection(
+  { name, placeholder, type, value, onChange, className },
+  ref,
+) {
   return (
     <input
       className={classnames(
@@ -33,9 +36,10 @@ function InputSection({ name, placeholder, type, value, onChange, className }) {
       type={type}
       value={value}
       onChange={onChange}
+      ref={ref}
     ></input>
   );
-}
+});
 
 function InputUnit({ children, className }) {
   return (
