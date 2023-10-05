@@ -27,12 +27,12 @@ export default function Home() {
         style={lottieStyle}
         lottieRef={lottieRef}
       />
-      <div className="text-4xl font-bold text-center">
-        <p className="mb-8 text-5xl drop-shadow-2xl">
+      <div className="flex flex-col items-center justify-center p-4 text-4xl font-bold text-center bg-white/60 backdrop-blur-sm rounded-medium">
+        <p className="mb-8 text-5xl drop-shadow-2xl ">
           창업의 모든것 <br />
           비즈 스캐너에서 쉽고 간편하게
         </p>
-        <Link href="/scan" className="w-1/2 p-4 text-white bg-primary rounded-small">
+        <Link href="/scan" className="block w-1/2 p-4 text-white bg-primary rounded-small">
           시작하기
         </Link>
       </div>
