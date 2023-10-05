@@ -20,7 +20,7 @@ function InvestInput({ isOpen, onClose, onUpdateInvestment, onShowCDistrictRecom
   const onClickRecommend = () => {
     const { firstInvestmentAmount, storeArea } = investInput;
 
-    const firstInvestmentAmountValue = parseInt(firstInvestmentAmount);
+    const firstInvestmentAmountValue = parseInt(firstInvestmentAmount) * 10000;
     const storeAreaValue = parseInt(storeArea);
 
     if (firstInvestmentAmountValue >= 30000000 && storeAreaValue >= 1) {
