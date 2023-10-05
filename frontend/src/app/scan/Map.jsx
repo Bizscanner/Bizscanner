@@ -24,14 +24,14 @@ function Map() {
   };
 
   const draw = () => {
-    if (!mapCoordinates) {
-      return;
-    }
-
     if (polyRef.current) {
       for (const p of polyRef.current) {
         p.setMap(null);
       }
+    }
+
+    if (!mapCoordinates) {
+      return;
     }
 
     polyRef.current = [];
