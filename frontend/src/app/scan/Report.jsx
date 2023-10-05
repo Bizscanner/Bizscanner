@@ -12,15 +12,22 @@ import ReportFloatingPopulation from './RepoartFloatingPopulation';
 import { createPortal } from 'react-dom';
 import { useSearchState } from './SearchContext';
 import CloseIcon from '@/assets/icons/close.svg';
+import SaveIcon from '@/assets/icons/save.svg';
+import SavedIcon from '@/assets/icons/saved.svg';
 import ReportConsumptionTrend from './ReportConsumptionTrend';
 import ReportCareaChange from './ReportCareaChange';
 import ReportRent from './ReportRent';
+import axios from '@/api/index';
+import { useSelector } from 'react-redux';
 import ReportComment from './ReportComment';
 
 function Report({ onClose }) {
-  const [tabIdx, setTabIdx] = useState(0);
+  const isLogin = useSelector((state) => state.user.isLogin);
 
-  const { jcategoryName, careaName } = useSearchState();
+  const [tabIdx, setTabIdx] = useState(0);
+  const [isScrapped, setIsScrapped] = useState(false);
+
+  const { jcategoryName, jcategoryCode, careaName, careaCode } = useSearchState();
 
   const mainRef = useRef();
   const summaryRef = useRef();
@@ -60,12 +67,32 @@ function Report({ onClose }) {
 
       return () => {};
     });
+    if (isLogin) {
+      axios.get(`/scrap/valid/${careaCode}/${jcategoryCode}`).then((response) => {
+        setIsScrapped(response.data.scrapped);
+      });
+    }
   }, []);
 
   const onClickTab = (idx) => {
     setTabIdx(idx);
-    console.log(window.clientHeight);
     mainRef.current?.scrollTo({ top: sectionList[idx].current.offsetTop, behavior: 'smooth' });
+  };
+
+  const onClickSave = async () => {
+    if (isLogin) {
+      if (!isScrapped) {
+        await axios.post('/scrap', {
+          careaCode,
+          jcategoryCode,
+        });
+        setIsScrapped((prev) => !prev)
+      } else {
+        alert('이미 저장된 리포트입니다.');
+      }
+    } else {
+      alert('로그인을 해주세요.')
+    }
   };
 
   return createPortal(
@@ -77,9 +104,20 @@ function Report({ onClose }) {
             <LocationIcon className="fill-primary" width="48" height="48"></LocationIcon>
             {`${jcategoryName} | ${careaName}`}
           </div>
-          <button onClick={() => onClose()}>
-            <CloseIcon width={48} height={48} />
-          </button>
+          <div>
+            {isScrapped ? (
+              <button onClick={onClickSave}>
+                <SavedIcon width={48} height={48} />
+              </button>
+            ) : (
+              <button onClick={onClickSave}>
+                <SaveIcon width={48} height={48} />
+              </button>
+            )}
+            <button onClick={() => onClose()}>
+              <CloseIcon width={48} height={48} />
+            </button>
+          </div>
         </div>
         <div className="flex flex-grow gap-8 overflow-y-auto">
           <main

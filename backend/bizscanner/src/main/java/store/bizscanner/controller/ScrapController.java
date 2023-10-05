@@ -24,9 +24,10 @@ public class ScrapController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> deleteScrap(@Valid @RequestBody ScrapRequest scrapRequest, Authentication authentication) {
-        scrapService.deleteScrap(scrapRequest, authentication.getName());
+    @DeleteMapping("/{careaCode}/{jcategoryCode}")
+    public ResponseEntity<Void> deleteScrap(@PathVariable String careaCode, @PathVariable String jcategoryCode,
+                                            Authentication authentication) {
+        scrapService.deleteScrap(new ScrapRequest(careaCode, jcategoryCode), authentication.getName());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

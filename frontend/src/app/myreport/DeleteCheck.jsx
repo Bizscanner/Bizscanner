@@ -1,9 +1,19 @@
 import React from 'react';
+import axios from '@/api/index';
 import { Modal } from '@/components/Modal';
 import Button from '@/components/Button';
 
-function DeleteCheck({ isOpen, onClose }) {
+function DeleteCheck({ isOpen, onClose, reportData, fetchData }) {
+  const careaCode = reportData.careaCode;
+  const jcategoryCode = reportData.jcategoryCode;
+
   const onClickClose = () => {
+    onClose();
+  };
+
+  const onClickConfirm = async () => {
+    await axios.delete(`/scrap/${careaCode}/${jcategoryCode}`);
+    fetchData();
     onClose();
   };
 
@@ -15,10 +25,20 @@ function DeleteCheck({ isOpen, onClose }) {
           <div className="flex flex-col items-center justify-around h-full">
             <Modal.Title>리포트를 삭제하시겠습니까 ?</Modal.Title>
             <Modal.ButtonList className="w-full h-1/4">
-              <Button className="text-2xl text-white mx-7 rounded-large bg-disabled" width="35%" height="100%" onClick={onClickClose}>
+              <Button
+                className="text-2xl text-white mx-7 rounded-large bg-disabled"
+                width="35%"
+                height="100%"
+                onClick={onClickClose}
+              >
                 취소
               </Button>
-              <Button className="text-2xl text-white mx-7 bg-primary rounded-large" width="35%" height="100%">
+              <Button
+                className="text-2xl text-white mx-7 bg-primary rounded-large"
+                width="35%"
+                height="100%"
+                onClick={onClickConfirm}
+              >
                 확인
               </Button>
             </Modal.ButtonList>

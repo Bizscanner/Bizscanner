@@ -1,55 +1,69 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from '@/api/index';
 import { Card } from '@/components/Card';
 import DeleteCheck from './DeleteCheck';
+import jcodedata from '../../../public/jcategorycode.json';
 
 function MyReport() {
   const [showDeleteCheck, setShowDeleteCheck] = useState(false);
+  const [scrapList, setScriptList] = useState([]);
+  const [reportData, setReportData] = useState({
+    careaCode: '',
+    jcategoryCode: '',
+  });
 
-  const ScrapList = [
-    {
-      careaCode: '1',
-      careaName: '망원시장',
-      jcategoryCode: '제과점',
-      reportDate: '2023-09-16',
-    },
-    {
-      careaCode: '1',
-      careaName: '망원시장',
-      jcategoryCode: '제과점',
-      reportDate: '2023-09-16',
-    },
-    {
-      careaCode: '1',
-      careaName: '망원시장',
-      jcategoryCode: '제과점',
-      reportDate: '2023-09-16',
-    },
-  ];
+  const fetchData = async () => {
+    const {
+      data: { scrapResponses },
+    } = await axios.get(`/scrap`);
+    setScriptList(scrapResponses);
+  };
 
-  const onClickDelete = () => {
+  const onClickDelete = (careaCode, jcategoryCode) => {
+    setReportData({
+      careaCode,
+      jcategoryCode,
+    });
     setShowDeleteCheck(true);
   };
 
   const onClickDetail = () => {};
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div>
       <div className="flex flex-col w-[80vw] translate-x-[10vw]">
         <h1 className="text-4xl font-bold pl-7 pt-7">마이 리포트</h1>
         <div className="grid grid-cols-3 justify-items-center">
-          {ScrapList.map(({ careaName, jcategoryCode, reportDate }, idx) => {
+          {scrapList.map(({ careaCode, careaName, jcategoryCode, createdAt }, idx) => {
+            const createdDate = new Date(createdAt);
             return (
               <Card key={idx}>
-                <Card.UpperButton size={40} onClick={onClickDelete} />
-                <Card.Content carea={careaName} jcategory={jcategoryCode} reportDate={reportDate} />
+                <Card.UpperButton
+                  size={40}
+                  onClick={() => onClickDelete(careaCode, jcategoryCode)}
+                />
+                <Card.Content
+                  carea={careaName}
+                  jcategory={jcodedata[jcategoryCode].name}
+                  reportDate={createdDate.toLocaleDateString()}
+                />
                 <Card.LowerButton onClick={onClickDetail}>상세보기</Card.LowerButton>
               </Card>
             );
           })}
           {showDeleteCheck && (
-            <DeleteCheck isOpen={showDeleteCheck} onClose={() => setShowDeleteCheck(false)} />
+            <DeleteCheck
+              isOpen={showDeleteCheck}
+              onClose={() => setShowDeleteCheck(false)}
+              reportData={reportData}
+              fetchData={fetchData}
+            />
           )}
         </div>
       </div>

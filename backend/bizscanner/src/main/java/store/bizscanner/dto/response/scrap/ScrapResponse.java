@@ -10,6 +10,6 @@ import java.time.LocalDateTime;
 public class ScrapResponse {
     private String careaCode;
     private String careaName;
-    private String jcateogryCode;
+    private String jcategoryCode;
     private LocalDateTime createdAt;
 }
