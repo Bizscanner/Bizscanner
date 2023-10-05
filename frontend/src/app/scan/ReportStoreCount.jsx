@@ -27,11 +27,11 @@ const ReportStoreCount = forwardRef(function ReportStoreCount({ careaCode, jcate
   }, []);
 
   return (
-    <ReportSection title="점포수" ref={ref}>
+    <ReportSection title="점포 수" ref={ref}>
       {storeCountInfo ? (
         <>
           <SummaryText>
-            해당 상권에서 운영 중인 한식 점포수 전년 동분기 대비
+            해당 상권에서 운영 중인 점포 수는 전년 동분기 대비
             <HighlightingText>
               {' ' + getLastYearDiff(storeCountInfo)}개 {getLastYearDiffText(storeCountInfo)}
             </HighlightingText>
@@ -45,9 +45,9 @@ const ReportStoreCount = forwardRef(function ReportStoreCount({ careaCode, jcate
             <div className="w-3/4">
               <Bar
                 graphData={storeCountInfo}
-                title="점포수"
+                title="점포 수"
                 config={quaterConfig}
-                dataLabel="점포수 (개)"
+                dataLabel="점포 수 (개)"
               />
             </div>
           </div>

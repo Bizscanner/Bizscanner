@@ -40,11 +40,17 @@ function DoubleBarGraph({
         label: firstLabel,
         data: firstGraphData,
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        datalabels: {
+          display: false,
+        },
       },
       {
         label: secondLabel,
         data: secondGraphData,
         backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        datalabels: {
+          display: false,
+        },
       },
     ],
   };

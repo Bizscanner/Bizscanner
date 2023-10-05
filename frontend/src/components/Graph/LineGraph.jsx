@@ -35,6 +35,9 @@ function LineGraph({ graphData, title, config, dataLabel }) {
         data: graphData,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        datalabels: {
+          display: false,
+        },
       },
     ],
   };

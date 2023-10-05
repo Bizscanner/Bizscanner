@@ -32,7 +32,7 @@ const ReportCloseStore = forwardRef(function ReportCloseStore({ careaCode, jcate
       {closeStoreInfo.length ? (
         <>
           <SummaryText>
-            해당 상권에서 폐업한 점포수는 전년 동분기 대비{' '}
+            해당 상권에서 폐업한 점포 수는 전년 동분기 대비{' '}
             <HighlightingText>
               {getLastYearDiff(closeStoreInfo)}개 {getLastYearDiffText(closeStoreInfo)}
             </HighlightingText>{' '}
@@ -48,7 +48,7 @@ const ReportCloseStore = forwardRef(function ReportCloseStore({ careaCode, jcate
                 graphData={closeStoreInfo}
                 title="폐업 현황"
                 config={quaterConfig}
-                dataLabel="점포수 (개)"
+                dataLabel="점포 수 (개)"
               />
             </div>
           </div>

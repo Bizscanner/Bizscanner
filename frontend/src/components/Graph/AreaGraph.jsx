@@ -47,6 +47,9 @@ function AreaGraph({ graphData, title, labels, dataLabel }) {
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
         fill: true,
         cubicInterpolationMode: 'monotone',
+        datalabels: {
+          display: false,
+        },
       },
     ],
   };

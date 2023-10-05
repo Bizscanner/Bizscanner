@@ -17,7 +17,7 @@ import TabButton from './TabButton';
 
 const tabMenu = [
   { title: '간략분석', icon: ArticleIcon },
-  { title: '점포수', icon: StoreIcon },
+  { title: '점포 수', icon: StoreIcon },
   { title: '개업 현황', icon: DoorOpenIcon },
   { title: '폐업 현황', icon: DoorClosedIcon },
   { title: '매출액', icon: MoneyIcon },

@@ -33,6 +33,9 @@ function BarGraph({ graphData, title, config, dataLabel }) {
         label: dataLabel,
         data: graphData,
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        datalabels: {
+          display: false,
+        },
       },
     ],
   };

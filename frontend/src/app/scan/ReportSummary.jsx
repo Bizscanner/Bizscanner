@@ -52,9 +52,9 @@ const ReportSummary = forwardRef(function ReportSummary({ careaCode }, ref) {
     <ReportSection title="간략분석" ref={ref}>
       <div>
         <IndicatorSection title="BEST 업종">
-          <Indicator title="점포수" value={bestJob?.bestStoreCountJcategory} />
-          <Indicator title="개업 점포수" value={bestJob?.bestOpenStoreCountJcategory} />
-          <Indicator title="폐업 점포수" value={bestJob?.bestCloseStoreCountJcategory} />
+          <Indicator title="점포 수" value={bestJob?.bestStoreCountJcategory} />
+          <Indicator title="개업 점포 수" value={bestJob?.bestOpenStoreCountJcategory} />
+          <Indicator title="폐업 점포 수" value={bestJob?.bestCloseStoreCountJcategory} />
         </IndicatorSection>
         <IndicatorSection title="BEST 매출">
           <Indicator title="성별" value={Gender[bestSales?.bestSalesGender]} />
