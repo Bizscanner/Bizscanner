@@ -27,13 +27,17 @@ function InvestInput({ isOpen, onClose, onUpdateInvestment, onShowCDistrictRecom
       onUpdateInvestment(firstInvestmentAmountValue, storeAreaValue);
       onShowCDistrictRecommendation();
       onClose();
-    } else if ((firstInvestmentAmountValue === 0 && storeAreaValue === 0) || storeAreaValue === 0 || firstInvestmentAmountValue === 0) {
-      alert('값을 입력해 주세요.')
+    } else if (
+      (firstInvestmentAmountValue === 0 && storeAreaValue === 0) ||
+      storeAreaValue === 0 ||
+      firstInvestmentAmountValue === 0
+    ) {
+      alert('값을 입력해 주세요.');
     } else if (firstInvestmentAmountValue < 30000000) {
-      alert('초기 투자금은 3천만원부터 입력 가능합니다.')
-    } else if ( storeAreaValue < 1 ) {
-      alert('업장 희망 면적은 1부터 입력 가능합니다.')
-    } 
+      alert('초기 투자금은 3천만원부터 입력 가능합니다.');
+    } else if (storeAreaValue < 1) {
+      alert('업장 희망 면적은 1부터 입력 가능합니다.');
+    }
   };
 
   const handleChange = (e) => {
@@ -59,7 +63,7 @@ function InvestInput({ isOpen, onClose, onUpdateInvestment, onShowCDistrictRecom
             <div className="flex flex-col items-center justify-center w-11/12 h-[340px] bg-white mt-3 rounded-large">
               <Input className="w-1/2">
                 <Input.Title>초기 투자금</Input.Title>
-                <Input.Wraaper className="justify-between">
+                <Input.Wrapper className="justify-between">
                   <Input.Section
                     name="firstInvestmentAmount"
                     placeholder="초기 투자금 입력"
@@ -67,11 +71,11 @@ function InvestInput({ isOpen, onClose, onUpdateInvestment, onShowCDistrictRecom
                     onChange={handleChange}
                   />
                   <Input.Unit>만 원</Input.Unit>
-                </Input.Wraaper>
+                </Input.Wrapper>
               </Input>
               <Input className="w-1/2 mt-10">
                 <Input.Title>희망 면적</Input.Title>
-                <Input.Wraaper className="justify-between">
+                <Input.Wrapper className="justify-between">
                   <Input.Section
                     name="storeArea"
                     placeholder="희망 면적 입력"
@@ -83,7 +87,7 @@ function InvestInput({ isOpen, onClose, onUpdateInvestment, onShowCDistrictRecom
                       m<sup>2</sup>
                     </p>
                   </Input.Unit>
-                </Input.Wraaper>
+                </Input.Wrapper>
               </Input>
             </div>
             <Modal.ButtonList>
