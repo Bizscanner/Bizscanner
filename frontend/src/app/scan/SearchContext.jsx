@@ -58,12 +58,14 @@ function reducer(state, action) {
         mapZoom: action.mapZoom ?? state.mapZoom,
       };
 
-    case 'SET_MAP':
+    case 'INIT_PLACE':
       return {
         ...state,
         mapCoordinates: action.mapCoordinates,
         mapZoom: action.mapZoom,
         mapCenter: action.mapCenter ?? state.mapCenter,
+        dongName: '',
+        dongCode: 0,
       };
 
     case 'SET_BIZ':

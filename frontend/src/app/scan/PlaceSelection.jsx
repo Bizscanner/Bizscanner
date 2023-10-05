@@ -80,7 +80,7 @@ function PlaceSelection({ onChangeStage, mode }) {
   const init = async () => {
     const { data } = await axios.get(`/jcategory-recommend/area/${sigunguCode}`);
     dispatch({
-      type: 'SET_MAP',
+      type: 'INIT_PLACE',
       mapCoordinates: [data.polygonCoordinates],
       mapCenter: [data.centerLongitude, data.centerLatitude],
       mapZoom: 13,
