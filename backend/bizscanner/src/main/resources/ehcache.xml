@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.ehcache.org/v3"
+        xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd">
+    <persistence directory="cache/data"/>
+
+    <!-- 상권 리스트 조회 캐싱 -->
+    <cache alias="dong_carea">
+        <key-type>java.lang.String</key-type>
+        <expiry>
+            <!-- 캐시 만료 시간 -->
+            <ttl unit="seconds">600</ttl>
+        </expiry>
+        <resources>
+            <!-- JVM heap 메모리 LRU strategy-->
+            <heap unit="entries">1000</heap>
+            <disk unit="MB" persistent="false">20</disk>
+        </resources>
+    </cache>
+</config>
