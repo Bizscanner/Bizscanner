@@ -89,7 +89,7 @@ function JobRecommendation({ isOpen, onClose }) {
                 />
                 <p className="text-4xl font-bold">{jobRecommendation.jcategoryName}</p>
               </div>
-              <div className="flex flex-row justify-center w-full mt-3 bg-white h-3/5 rounded-large">
+              <div className="flex flex-row justify-center w-full mt-3 mb-3 bg-white h-3/5 rounded-large">
                 <RecommendationIndicator>
                   <RecommendationIndicator.Title>평균 매출액</RecommendationIndicator.Title>
                   <RecommendationIndicator.Container className="text-white bg-primary">
@@ -126,16 +126,14 @@ function JobRecommendation({ isOpen, onClose }) {
                   </RecommendationIndicator.Container>
                 </RecommendationIndicator>
               </div>
-              <Modal.ButtonList>
-                <Button
-                  className="text-xl tracking-wide text-white bg-primary rounded-small"
-                  width="400px"
-                  height="50px"
-                  onClick={onClickShowReport}
-                >
-                  리포트 보기
-                </Button>
-              </Modal.ButtonList>
+              <Button
+                className="text-xl tracking-wide text-white bg-primary rounded-small"
+                width="400px"
+                height="50px"
+                onClick={onClickShowReport}
+              >
+                리포트 보기
+              </Button>
             </div>
           </Modal.Container>
         </Modal.Dimmed>

@@ -60,7 +60,7 @@ function InvestInput({ isOpen, onClose, onUpdateInvestment, onShowCDistrictRecom
           <div className="flex flex-col items-center">
             <Modal.Title>초기 투자 입력</Modal.Title>
             <div className="mt-2">{Notice}</div>
-            <div className="flex flex-col items-center justify-center w-11/12 h-[340px] bg-white mt-3 rounded-large">
+            <div className="flex flex-col items-center justify-center w-11/12 h-[340px] bg-white mt-3 rounded-large mb-3">
               <Input className="w-1/2">
                 <Input.Title>초기 투자금</Input.Title>
                 <Input.Wrapper className="justify-between">
@@ -90,13 +90,11 @@ function InvestInput({ isOpen, onClose, onUpdateInvestment, onShowCDistrictRecom
                 </Input.Wrapper>
               </Input>
             </div>
-            <Modal.ButtonList>
-              <RecommendButton
-                title={'추천받기'}
-                className="w-[300px] p-3 text-xl tracking-wide mx-1 mt-0"
-                onClick={onClickRecommend}
-              />
-            </Modal.ButtonList>
+            <RecommendButton
+              title={'추천받기'}
+              className="w-[300px] p-3 text-xl tracking-wide mx-1 mt-0"
+              onClick={onClickRecommend}
+            />
           </div>
         </Modal.Container>
       </Modal.Dimmed>
