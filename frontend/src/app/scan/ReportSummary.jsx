@@ -15,8 +15,8 @@ function IndicatorSection({ title, children }) {
 
 function Indicator({ title, value }) {
   return (
-    <div className="flex flex-col items-center justify-center p-4 font-bold text-center border-2 grow border-outline rounded-small">
-      <div className="text-primary">{title}</div>
+    <div className="flex flex-col items-center justify-center p-4 text-2xl font-bold text-center border-2 text-primary grow border-outline rounded-small">
+      <div className="text-base text-disabled">{title}</div>
       {value}
     </div>
   );
