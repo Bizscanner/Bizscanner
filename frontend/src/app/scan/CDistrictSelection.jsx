@@ -21,7 +21,7 @@ function CDistrictSelection({ onChangeStage, mode }) {
     setCDistricts(dongInfoResponseList);
 
     dispatch({
-      type: 'SET_MAP',
+      type: 'SET_CAREA_MAP',
       mapCoordinates: dongInfoResponseList.map(({ polygonCoordinates }) => polygonCoordinates),
       mapZoom: 15,
     });

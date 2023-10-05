@@ -16,7 +16,6 @@ const initialState = {
   bizName: '',
   jcategoryCode: '',
   jcategoryName: '',
-  mapSelected: '',
   mapCenter: null,
   mapCoordinates: null,
 };
@@ -30,7 +29,6 @@ function reducer(state, action) {
         sigunguName: action.sigunguName,
         dongCode: action.dongCode,
         dongName: action.dongName,
-        mapSelected: action.sigunguCode,
         mapCenter: action.mapCenter,
         mapCoordinates: action.mapCoordinates,
         mapZoom: action.mapZoom,
@@ -41,7 +39,6 @@ function reducer(state, action) {
         ...state,
         dongCode: action.dongCode,
         dongName: action.dongName,
-        mapSelected: action.dongCode,
         mapCenter: action.mapCenter,
         mapCoordinates: action.mapCoordinates,
         mapZoom: action.mapZoom,
@@ -52,10 +49,9 @@ function reducer(state, action) {
         ...state,
         careaCode: action.careaCode,
         careaName: action.careaName,
-        mapSelected: action.careaCode,
         mapCenter: action.mapCenter,
-        mapCoordinates: action.mapCoordinates ?? state.mapCoordinates,
-        mapZoom: action.mapZoom ?? state.mapZoom,
+        mapCoordinates: action.mapCoordinates || state.mapCoordinates,
+        mapZoom: action.mapZoom || state.mapZoom,
       };
 
     case 'INIT_PLACE':
@@ -66,6 +62,13 @@ function reducer(state, action) {
         mapCenter: action.mapCenter ?? state.mapCenter,
         dongName: '',
         dongCode: 0,
+      };
+
+    case 'SET_CAREA_MAP':
+      return {
+        ...state,
+        mapCoordinates: action.mapCoordinates,
+        mapZoom: action.mapZoom,
       };
 
     case 'SET_BIZ':
