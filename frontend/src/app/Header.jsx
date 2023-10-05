@@ -10,7 +10,7 @@ function Header() {
   return (
     <nav className="flex items-center justify-between w-full p-4 bg-background">
       <Link href="/">
-        <img src="icons/logo.svg" />
+        <img src="icons/logo.svg" alt="비즈 스캐너" width={175} height={50} />
       </Link>
       {isLogin ? <Profile /> : <LoginButton />}
     </nav>

@@ -6,12 +6,12 @@ import Header from './Header';
 const tMoney = localFont({
   src: [
     {
-      path: '../../public/fonts/TmoneyRoundWindRegular.ttf',
+      path: '../assets/fonts/TmoneyRoundWindRegular.otf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/TmoneyRoundWindExtraBold.ttf',
+      path: '../assets/fonts/TmoneyRoundWindExtraBold.otf',
       weight: '700',
       style: 'normal',
     },
