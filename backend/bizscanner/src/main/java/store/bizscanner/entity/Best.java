@@ -19,6 +19,6 @@ public class Best implements Comparable<Best> {
 
     @Override
     public int compareTo(Best o) {
-        return Long.compare(this.value, o.value);
+        return Long.compare(o.value, this.value);
     }
 }
